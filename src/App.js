@@ -1,5 +1,8 @@
 import React from "react"
 import HeroCard from "./components/HeroCard"
+import * as loadingData from "./loading.json"
+import FadeIn from "react-fade-in"
+import Lottie from "react-lottie"
 
 class App extends React.Component {
 
@@ -8,10 +11,9 @@ class App extends React.Component {
     this.state = {
       heading: "Choose a hero",
       sub_heading: "Hero detail goes here...",
-      strs: null,
-      agis: null,
-      ints: null,
-      strCards: null
+      strCards: null,
+      agiCards: null,
+      intCards: null
     }
   }
 
@@ -19,58 +21,46 @@ class App extends React.Component {
     fetch("https://api.opendota.com/api/heroes")
     .then(res => res.json())
     .then(heroes => {
-      const strs = [], agis = [], ints = []
+      const strCards = [], agiCards = [], intCards = []
       heroes.map(hero => {
         if (hero.primary_attr === "str") {
-          strs.push(hero)
+          strCards.push(
+            <HeroCard
+              id={hero.id}
+              key={"hero-" + hero.id}
+              mouseOver={this.showDetail}
+              name={hero.name.split("_dota_hero_")[1]}
+              isValid={true}
+            />
+          )
         } else if (hero.primary_attr === "agi") {
-          agis.push(hero)
+          agiCards.push(
+            <HeroCard
+              id={hero.id}
+              key={"hero-" + hero.id}
+              mouseOver={this.showDetail}
+              name={hero.name.split("_dota_hero_")[1]}
+              isValid={true}
+            />
+          )
         } else if (hero.primary_attr === "int") {
-          ints.push(hero)
+          intCards.push(
+            <HeroCard
+              id={hero.id}
+              key={"hero-" + hero.id}
+              mouseOver={this.showDetail}
+              name={hero.name.split("_dota_hero_")[1]}
+              isValid={true}
+            />
+          )
         }
-        return null
       })
-      this.setState({ strs, agis, ints })
-      this.setState({
-        strCards: this.state.strs.map(str => {
-          return(
-            <HeroCard
-              id={str.id}
-              key={"hero-" + str.id}
-              mouseOver={this.showDetail}
-              name={str.name.split("_dota_hero_")[1]}
-              isValid={true}
-            />
-          )
-        }),
-        agiCards: this.state.agis.map(agi => {
-          return(
-            <HeroCard
-              id={agi.id}
-              key={"hero-" + agi.id}
-              mouseOver={this.showDetail}
-              name={agi.name.split("_dota_hero_")[1]}
-              isValid={true}
-            />
-          )
-        }),
-        intCards: this.state.ints.map(int => {
-          return(
-            <HeroCard
-              id={int.id}
-              key={"hero-" + int.id}
-              mouseOver={this.showDetail}
-              name={int.name.split("_dota_hero_")[1]}
-              isValid={true}
-            />
-          )
-        })
-      })
+      this.setState({ heroes, strCards, agiCards, intCards })
     })
   }
   
   showDetail = e => {
-    const hoveredHero = [...this.state.strs, ...this.state.agis, ...this.state.ints].find(hero => hero.id === +e.target.dataset.id)
+    const hoveredHero = this.state.heroes.find(hero => hero.id === +e.target.dataset.id)
     const heroDesc = `${hoveredHero.attack_type} ${hoveredHero.roles.reduce((acc, cur) => acc + " - " + cur, "")}`
     this.setState({
       heading: hoveredHero.localized_name,
@@ -79,41 +69,41 @@ class App extends React.Component {
   }
 
   filter = (attr, value) => {
-    this.setState({
-      strCards: this.state.strs.map(str => {
-        return(
+    const strCards = [], agiCards = [], intCards = []
+    this.state.heroes.map(hero => {
+      if (hero.primary_attr === "str") {
+        strCards.push(
           <HeroCard
-            id={str.id}
-            key={"hero-" + str.id}
+            id={hero.id}
+            key={"hero-" + hero.id}
             mouseOver={this.showDetail}
-            name={str.name.split("_dota_hero_")[1]}
-            isValid={attr === null || str[attr].includes(value) ? true : false}
+            name={hero.name.split("_dota_hero_")[1]}
+            isValid={attr === null || hero[attr].includes(value) ? true : false}
           />
         )
-      }),
-      agiCards: this.state.agis.map(agi => {
-        return(
+      } else if (hero.primary_attr === "agi") {
+        agiCards.push(
           <HeroCard
-            id={agi.id}
-            key={"hero-" + agi.id}
+            id={hero.id}
+            key={"hero-" + hero.id}
             mouseOver={this.showDetail}
-            name={agi.name.split("_dota_hero_")[1]}
-            isValid={attr === null || agi[attr].includes(value) ? true : false}
+            name={hero.name.split("_dota_hero_")[1]}
+            isValid={attr === null || hero[attr].includes(value) ? true : false}
           />
         )
-      }),
-      intCards: this.state.ints.map(int => {
-        return(
+      } else if (hero.primary_attr === "int") {
+        intCards.push(
           <HeroCard
-            id={int.id}
-            key={"hero-" + int.id}
+            id={hero.id}
+            key={"hero-" + hero.id}
             mouseOver={this.showDetail}
-            name={int.name.split("_dota_hero_")[1]}
-            isValid={attr === null || int[attr].includes(value) ? true : false}
+            name={hero.name.split("_dota_hero_")[1]}
+            isValid={attr === null || hero[attr].includes(value) ? true : false}
           />
         )
-      })
+      }
     })
+    this.setState({ strCards, agiCards, intCards })
   }
 
   filterAttackType = e => {
@@ -139,8 +129,28 @@ class App extends React.Component {
     }
   }
 
-
   render() {
+
+    const defaultOptions = {
+      loop: true,
+      autoplay: true,
+      animationData: loadingData.default,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice"
+      }
+    }
+
+    if (this.state.strCards === null || this.state.agiCards === null || this.state.intCards === null) {
+      return(
+        <FadeIn>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "99vw", height: "95vh" }}>
+            <Lottie options={defaultOptions} height={140} width={140} />
+          </div>
+        </FadeIn>
+      )
+    }
+
+    const names = this.state.heroes.map(hero => <option>{hero.localized_name}</option>)
 
     return(
       <>
@@ -170,24 +180,25 @@ class App extends React.Component {
           </select>
           <select onChange={this.filterName}>
             <option>HERO NAME</option>
-            <option>Abaddon</option>
-            <option>Alchemist</option>
+            {names}
           </select>
         </div>
-        <div className="container">
-          <h2 className="attr">strength</h2>
-          <div className="hero-container">
-            {this.state.strCards || "loading"}
+        <FadeIn>
+          <div className="container">
+            <h2 className="attr" style={{color: "#EF4444"}}>strength</h2>
+            <div className="hero-container">
+              {this.state.strCards || "loading"}
+            </div>
+            <h2 className="attr" style={{color: "#10B981"}}>agility</h2>
+            <div className="hero-container">
+              {this.state.agiCards || "loading"}
+            </div>
+            <h2 className="attr" style={{color: "#3B82F6"}}>intelligence</h2>
+            <div className="hero-container">
+              {this.state.intCards || "loading"}
+            </div>
           </div>
-          <h2 className="attr">agility</h2>
-          <div className="hero-container">
-            {this.state.agiCards || "loading"}
-          </div>
-          <h2 className="attr">intelligence</h2>
-          <div className="hero-container">
-            {this.state.intCards || "loading"}
-          </div>
-        </div>
+        </FadeIn>
       </>
     )
   }

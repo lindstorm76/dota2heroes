@@ -6,12 +6,16 @@ body {
 }
 
 .hero-card {
+  height: fit-content;
   margin: .25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .hero-card img {
   width: 6rem;
-  height: auto;
+  height: 100%;
   object-fit: cover;
   transition: .3s;
   cursor: pointer;
@@ -74,4 +78,8 @@ body {
   margin-left: 1rem;
   outline: none;
   padding: 0 .25rem;
+}
+
+option, select {
+  font-family: 'Montserrat', sans-serif;
 }
