@@ -1,0 +1,58 @@
+body {
+  background-color: #222831;
+  font-family: 'Montserrat', sans-serif;
+  color: gainsboro;
+  padding-top: .5rem;
+}
+
+.hero-card {
+  margin: .25rem;
+}
+
+.hero-card img {
+  width: 6rem;
+  height: auto;
+  object-fit: cover;
+  transition: .3s;
+  cursor: pointer;
+}
+
+.hero-card img:hover {
+  transform: scale(1.3);
+}
+
+.heading, .sub-heading {
+  text-align: center;
+}
+
+.heading {
+  color: silver;
+  letter-spacing: .5rem;
+  text-transform: uppercase;
+}
+
+.sub_heading {
+  color: white;
+}
+
+.desc {
+  color: gray;
+}
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.hero-container {
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.attr {
+  margin: .5rem 0 .25rem 0;
+  text-transform: uppercase;
+}
