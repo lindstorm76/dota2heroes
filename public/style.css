@@ -25,10 +25,13 @@ body {
   text-align: center;
 }
 
+.heading, select#role, select#atk_type, select#role option, select#atk_type option, .filter {
+  text-transform: uppercase;
+}
+
 .heading {
   color: silver;
   letter-spacing: .5rem;
-  text-transform: uppercase;
 }
 
 .sub_heading {
@@ -50,9 +53,25 @@ body {
   width: 90%;
   display: flex;
   flex-wrap: wrap;
+  justify-content: flex-start;
 }
 
 .attr {
-  margin: .5rem 0 .25rem 0;
+  margin: 1rem 0 .5rem 0;
   text-transform: uppercase;
+}
+
+.filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filter select {
+  height: 2rem;
+  background-color: #414141;
+  color: white;
+  margin-left: 1rem;
+  outline: none;
+  padding: 0 .25rem;
 }

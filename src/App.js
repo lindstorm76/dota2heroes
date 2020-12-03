@@ -7,10 +7,11 @@ class App extends React.Component {
     super(props)
     this.state = {
       heading: "Choose a hero",
-      sub_heading: "",
+      sub_heading: "Hero detail goes here...",
       strs: null,
       agis: null,
-      ints: null
+      ints: null,
+      strCards: null
     }
   }
 
@@ -30,6 +31,41 @@ class App extends React.Component {
         return null
       })
       this.setState({ strs, agis, ints })
+      this.setState({
+        strCards: this.state.strs.map(str => {
+          return(
+            <HeroCard
+              id={str.id}
+              key={"hero-" + str.id}
+              mouseOver={this.showDetail}
+              name={str.name.split("_dota_hero_")[1]}
+              isValid={true}
+            />
+          )
+        }),
+        agiCards: this.state.agis.map(agi => {
+          return(
+            <HeroCard
+              id={agi.id}
+              key={"hero-" + agi.id}
+              mouseOver={this.showDetail}
+              name={agi.name.split("_dota_hero_")[1]}
+              isValid={true}
+            />
+          )
+        }),
+        intCards: this.state.ints.map(int => {
+          return(
+            <HeroCard
+              id={int.id}
+              key={"hero-" + int.id}
+              mouseOver={this.showDetail}
+              name={int.name.split("_dota_hero_")[1]}
+              isValid={true}
+            />
+          )
+        })
+      })
     })
   }
   
@@ -41,57 +77,115 @@ class App extends React.Component {
       sub_heading: heroDesc
     })
   }
-  render() {
-    let strCards, agiCards, intCards
-    if (this.state.strs !== null)
-      strCards = this.state.strs.map(str => {
+
+  filter = (attr, value) => {
+    this.setState({
+      strCards: this.state.strs.map(str => {
         return(
           <HeroCard
             id={str.id}
             key={"hero-" + str.id}
             mouseOver={this.showDetail}
             name={str.name.split("_dota_hero_")[1]}
+            isValid={attr === null || str[attr].includes(value) ? true : false}
           />
         )
-      })
-    if (this.state.agis !== null)
-      agiCards = this.state.agis.map(agi => {
+      }),
+      agiCards: this.state.agis.map(agi => {
         return(
           <HeroCard
             id={agi.id}
             key={"hero-" + agi.id}
             mouseOver={this.showDetail}
             name={agi.name.split("_dota_hero_")[1]}
+            isValid={attr === null || agi[attr].includes(value) ? true : false}
           />
         )
-      })
-    if (this.state.ints !== null)
-      intCards = this.state.ints.map(int => {
+      }),
+      intCards: this.state.ints.map(int => {
         return(
           <HeroCard
             id={int.id}
             key={"hero-" + int.id}
             mouseOver={this.showDetail}
             name={int.name.split("_dota_hero_")[1]}
+            isValid={attr === null || int[attr].includes(value) ? true : false}
           />
         )
       })
+    })
+  }
+
+  filterAttackType = e => {
+    if (e.target.value === "melee") {
+      this.filter("attack_type", "Melee")
+    } else if (e.target.value === "ranged") {
+      this.filter("attack_type", "Ranged")
+    } else {
+      this.filter(null)
+    }
+  }
+
+  filterName = e => {
+    this.filter("localized_name", e.target.value)
+  }
+
+  filterRole = e => {
+    const target = e.target.value.substring(0, 1).toUpperCase() + e.target.value.substring(1)
+    if (target === "By role" || target === "All") {
+      this.filter(null)
+    } else {
+      this.filter("roles", target)
+    }
+  }
+
+
+  render() {
+
     return(
       <>
         <h1 className="heading">{this.state.heading}</h1>
         <h3 className="sub-heading">{this.state.sub_heading}</h3>
+        <div className="filter">
+          <p>filter</p>
+          <select id="role" onChange={this.filterRole}>
+            <option>by role</option>
+            <option>all</option>
+            <option>carry</option>
+            <option>disabler</option>
+            <option>lane support</option>
+            <option>initiator</option>
+            <option>jungler</option>
+            <option>support</option>
+            <option>durable</option>
+            <option>nuker</option>
+            <option>pusher</option>
+            <option>escape</option>
+          </select>
+          <select id="atk_type" onChange={this.filterAttackType}>
+            <option>by attack type</option>
+            <option>all</option>
+            <option>melee</option>
+            <option>ranged</option>
+          </select>
+          <select onChange={this.filterName}>
+            <option>HERO NAME</option>
+            <option>Abaddon</option>
+            <option>Alchemist</option>
+          </select>
+        </div>
         <div className="container">
           <h2 className="attr">strength</h2>
           <div className="hero-container">
-            {strCards || "loading"}
+            {this.state.strCards || "loading"}
           </div>
           <h2 className="attr">agility</h2>
           <div className="hero-container">
-            {agiCards || "loading"}
+            {this.state.agiCards || "loading"}
           </div>
           <h2 className="attr">intelligence</h2>
           <div className="hero-container">
-            {intCards || "loading"}
+            {this.state.intCards || "loading"}
           </div>
         </div>
       </>
