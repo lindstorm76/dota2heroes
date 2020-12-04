@@ -10,7 +10,8 @@ class App extends React.Component {
     super(props)
     this.state = {
       heading: "Choose a hero",
-      sub_heading: "Hero detail goes here...",
+      atkType: "Hover on any hero to reveal their roles...",
+      desc: null,
       strCards: null,
       agiCards: null,
       intCards: null
@@ -29,6 +30,8 @@ class App extends React.Component {
               id={hero.id}
               key={"hero-" + hero.id}
               mouseOver={this.showDetail}
+              attr={hero.primary_attr}
+              localized_name={hero.localized_name}
               name={hero.name.split("_dota_hero_")[1]}
               isValid={true}
             />
@@ -39,6 +42,8 @@ class App extends React.Component {
               id={hero.id}
               key={"hero-" + hero.id}
               mouseOver={this.showDetail}
+              attr={hero.primary_attr}
+              localized_name={hero.localized_name}
               name={hero.name.split("_dota_hero_")[1]}
               isValid={true}
             />
@@ -49,6 +54,8 @@ class App extends React.Component {
               id={hero.id}
               key={"hero-" + hero.id}
               mouseOver={this.showDetail}
+              attr={hero.primary_attr}
+              localized_name={hero.localized_name}
               name={hero.name.split("_dota_hero_")[1]}
               isValid={true}
             />
@@ -61,10 +68,10 @@ class App extends React.Component {
   
   showDetail = e => {
     const hoveredHero = this.state.heroes.find(hero => hero.id === +e.target.dataset.id)
-    const heroDesc = `${hoveredHero.attack_type} ${hoveredHero.roles.reduce((acc, cur) => acc + " - " + cur, "")}`
     this.setState({
       heading: hoveredHero.localized_name,
-      sub_heading: heroDesc
+      atkType: hoveredHero.attack_type,
+      desc: hoveredHero.roles.reduce((acc, cur) => acc + " - " + cur, "")
     })
   }
 
@@ -77,6 +84,8 @@ class App extends React.Component {
             id={hero.id}
             key={"hero-" + hero.id}
             mouseOver={this.showDetail}
+            attr={hero.primary_attr}
+            localized_name={hero.localized_name}
             name={hero.name.split("_dota_hero_")[1]}
             isValid={attr === null || hero[attr].includes(value) ? true : false}
           />
@@ -87,6 +96,8 @@ class App extends React.Component {
             id={hero.id}
             key={"hero-" + hero.id}
             mouseOver={this.showDetail}
+            attr={hero.primary_attr}
+            localized_name={hero.localized_name}
             name={hero.name.split("_dota_hero_")[1]}
             isValid={attr === null || hero[attr].includes(value) ? true : false}
           />
@@ -97,6 +108,8 @@ class App extends React.Component {
             id={hero.id}
             key={"hero-" + hero.id}
             mouseOver={this.showDetail}
+            attr={hero.primary_attr}
+            localized_name={hero.localized_name}
             name={hero.name.split("_dota_hero_")[1]}
             isValid={attr === null || hero[attr].includes(value) ? true : false}
           />
@@ -155,7 +168,7 @@ class App extends React.Component {
     return(
       <>
         <h1 className="heading">{this.state.heading}</h1>
-        <h3 className="sub-heading">{this.state.sub_heading}</h3>
+        <h3 className="sub-heading">{this.state.atkType}<span style={{color: "gray"}}>{this.state.desc}</span></h3>
         <div className="filter">
           <p>filter</p>
           <select id="role" onChange={this.filterRole}>

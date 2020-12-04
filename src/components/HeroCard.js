@@ -1,12 +1,18 @@
 import React from 'react'
 
 class HeroCard extends React.Component {
-  
+
+  handleRedirect = () => {
+    window.location.href = `/${this.props.localized_name}`
+  }
+
   render() {
     return(
       <div className="hero-card">
         <img
-          onMouseOver={this.props.mouseOver}
+          onClick={this.handleRedirect}
+          onMouseOver={this.props.isValid ? this.props.mouseOver : ""}
+          className={`${this.props.isValid ? "hover" : ""} ${this.props.attr}`}
           data-id={this.props.id}
           src={`http://cdn.dota2.com/apps/dota2/images/heroes/${this.props.name}_full.png`}
           style={{opacity: this.props.isValid ? 1 : .3}}
