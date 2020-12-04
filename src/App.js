@@ -157,7 +157,7 @@ class App extends React.Component {
       return(
         <FadeIn>
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "99vw", height: "95vh" }}>
-            <Lottie options={defaultOptions} height={140} width={140} />
+            <Lottie options={defaultOptions} height={200} width={200} />
           </div>
         </FadeIn>
       )
@@ -167,8 +167,10 @@ class App extends React.Component {
 
     return(
       <>
-        <h1 className="heading">{this.state.heading}</h1>
-        <h3 className="sub-heading">{this.state.atkType}<span style={{color: "gray"}}>{this.state.desc}</span></h3>
+        <div class="heading-container">
+          <h1 className="heading">{this.state.heading}</h1>
+          <h3 className="sub-heading">{this.state.atkType}<span style={{color: "gray"}}>{this.state.desc}</span></h3>
+        </div>
         <div className="filter">
           <p>filter</p>
           <select id="role" onChange={this.filterRole}>

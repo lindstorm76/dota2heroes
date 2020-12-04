@@ -2,6 +2,7 @@ import React from "react"
 import FadeIn from "react-fade-in"
 import Lottie from "react-lottie"
 import * as loadingData from "../loading.json"
+import * as notfound from "../notfound.json"
 
 class HeroDetail extends React.Component {
 
@@ -23,10 +24,27 @@ class HeroDetail extends React.Component {
 
   render() {
 
+    const loadingOption = {
+      loop: true,
+      autoplay: true,
+      animationData: loadingData.default,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice"
+      }
+    }
+
     const defaultOptions = {
       loop: true,
       autoplay: true,
       animationData: loadingData.default,
+      rendererSettings: {
+        preserveAspectRatio: "xMidYMid slice"
+      }
+    }
+    const notfoundOption = {
+      loop: true,
+      autoplay: true,
+      animationData: notfound.default,
       rendererSettings: {
         preserveAspectRatio: "xMidYMid slice"
       }
@@ -36,7 +54,17 @@ class HeroDetail extends React.Component {
       return(
         <FadeIn>
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "99vw", height: "95vh" }}>
-            <Lottie options={defaultOptions} height={140} width={140} />
+            <Lottie options={loadingOption} height={200} width={200} />
+          </div>
+        </FadeIn>
+      )
+    }
+
+    if (this.state.hero === undefined) {
+      return(
+        <FadeIn>
+          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "99vw", height: "95vh" }}>
+            <Lottie options={notfoundOption} height={400} width={400} />
           </div>
         </FadeIn>
       )

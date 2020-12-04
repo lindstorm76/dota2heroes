@@ -3,6 +3,7 @@ body {
   font-family: 'Montserrat', sans-serif;
   color: gainsboro;
   padding-top: .25rem;
+  overflow-x: hidden;
 }
 
 .hero-card {
@@ -96,4 +97,20 @@ body {
 
 option, select {
   font-family: 'Montserrat', sans-serif;
+}
+
+@media (max-width: 600px) {
+  .filter {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filter select {
+    margin: 0 0 .5rem 0;
+    width: 100%;
+  }
+
+  .heading-container {
+    height: 7rem;
+  }
 }

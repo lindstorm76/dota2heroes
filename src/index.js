@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
 import HeroDetail from "./components/HeroDetail"
+import NotFound from "./components/NotFound"
+import "./style.css"
 import {
   BrowserRouter as Router,
   Switch,
@@ -11,10 +13,9 @@ import {
 ReactDOM.render(
   <Router>
     <Switch>
-      <Route exact path="/" component={App}>
-      </Route>
-      <Route path="/:name" component={HeroDetail}>
-      </Route>
+      <Route exact path="/" component={App} />
+      <Route exact path="/:name" component={HeroDetail} />
+      <Route path="*" component={NotFound} />
     </Switch>
   </Router>,
   document.getElementById('root')
