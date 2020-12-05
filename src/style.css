@@ -118,6 +118,7 @@ option, select {
   .filter {
     flex-direction: column;
     align-items: flex-start;
+    width: 100%;
   }
   
   .filter select {
@@ -127,6 +128,10 @@ option, select {
 
   .heading-container {
     height: 7rem;
+  }
+
+  .hero-container {
+    justify-content: space-around;
   }
 }
 
