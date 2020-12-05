@@ -3,13 +3,14 @@ import HeroCard from "./components/HeroCard"
 import * as loadingData from "./loading.json"
 import FadeIn from "react-fade-in"
 import Lottie from "react-lottie"
+import FilterOption from "./components/FilterOption"
 
 class App extends React.Component {
 
   constructor(props) {
     super(props)
     this.state = {
-      heading: "Choose a hero",
+      heading: "Dota 2 Heroes",
       atkType: "Hover on any hero to reveal their roles...",
       desc: null,
       strCards: null,
@@ -166,38 +167,17 @@ class App extends React.Component {
     const names = this.state.heroes.map(hero => <option>{hero.localized_name}</option>)
 
     return(
-      <>
-        <div class="heading-container">
+      <div className="center-container">
+        <div className="heading-container">
           <h1 className="heading">{this.state.heading}</h1>
-          <h3 className="sub-heading">{this.state.atkType}<span style={{color: "gray"}}>{this.state.desc}</span></h3>
+          {/* <h3 className="sub-heading">{this.state.atkType}<span style={{color: "gray"}}>{this.state.desc}</span></h3> */}
         </div>
-        <div className="filter">
-          <p>filter</p>
-          <select id="role" onChange={this.filterRole}>
-            <option>by role</option>
-            <option>all</option>
-            <option>carry</option>
-            <option>disabler</option>
-            <option>lane support</option>
-            <option>initiator</option>
-            <option>jungler</option>
-            <option>support</option>
-            <option>durable</option>
-            <option>nuker</option>
-            <option>pusher</option>
-            <option>escape</option>
-          </select>
-          <select id="atk_type" onChange={this.filterAttackType}>
-            <option>by attack type</option>
-            <option>all</option>
-            <option>melee</option>
-            <option>ranged</option>
-          </select>
-          <select onChange={this.filterName}>
-            <option>HERO NAME</option>
-            {names}
-          </select>
-        </div>
+        <FilterOption
+          filterRole={this.filterRole}
+          filterAttackType={this.filterAttackType}
+          filterName={this.filterName}
+          names={names}
+        />
         <FadeIn>
           <div className="container">
             <h2 className="attr" style={{color: "#EF4444"}}>strength</h2>
@@ -214,7 +194,7 @@ class App extends React.Component {
             </div>
           </div>
         </FadeIn>
-      </>
+      </div>
     )
   }
 }

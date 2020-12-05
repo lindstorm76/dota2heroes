@@ -71,15 +71,15 @@ class HeroDetail extends React.Component {
     }
 
     const roles = this.state.hero.roles.reduce((acc, cur) => acc + " - " + cur, "")
-    let color, attr
+    let color, attr, src
     switch (this.state.hero.primary_attr) {
-      case "str": color = "#EF4444"; attr = "strength"; break;
-      case "agi": color = "#10B981"; attr = "agility"; break;
-      case "int": color = "#3B82F6"; attr = "inteligence"; break;
+      case "str": color = "#EF4444"; attr = "strength"; src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/7/7a/Strength_attribute_symbol.png"; break;
+      case "agi": color = "#10B981"; attr = "agility"; src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/2/2d/Agility_attribute_symbol.png"; break;
+      case "int": color = "#3B82F6"; attr = "inteligence"; src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/5/56/Intelligence_attribute_symbol.png"; break;
     }
 
     return(
-      <>
+      <div className="center-container">
         <h1 className="heading">{this.state.hero.localized_name}</h1>
         <FadeIn>
           <center>
@@ -87,12 +87,15 @@ class HeroDetail extends React.Component {
               src={`http://cdn.dota2.com/apps/dota2/images/heroes/${this.state.hero.name.split("_dota_hero_")[1]}_full.png`}
               style={{width: "20rem"}}
             />
-          </center>
-          
+            
+          <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+          <img style={{width: "2.5rem", height: "2.5rem", margin: "0 .5rem"}} src={src} />
           <h2 className="attr" style={{color}}>{attr}</h2>
+          </div>
           <h3 className="sub-heading">{this.state.hero.attack_type}<span style={{color: "gray"}}>{roles}</span></h3>
+          </center>
         </FadeIn>
-      </>
+      </div>
       
     )
   }

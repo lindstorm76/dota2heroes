@@ -13,7 +13,7 @@ class HeroCard extends React.Component {
           onClick={this.handleRedirect}
           onMouseOver={this.props.isValid ? this.props.mouseOver : ""}
           className={`${this.props.isValid ? "hover" : ""} ${this.props.isValid ? this.props.attr : ""}`}
-          data-id={this.props.id}
+          data-id={this.props.id}   
           src={`http://cdn.dota2.com/apps/dota2/images/heroes/${this.props.name}_full.png`}
           style={{opacity: this.props.isValid ? 1 : .3}}
         />
