@@ -15,7 +15,10 @@ class App extends React.Component {
       desc: null,
       strCards: null,
       agiCards: null,
-      intCards: null
+      intCards: null,
+      role: null,
+      attack_type: null,
+      name: null
     }
   }
 
@@ -76,9 +79,20 @@ class App extends React.Component {
     })
   }
 
-  filter = (attr, value) => {
+  filter = (role, attack_type, name) => {
     const strCards = [], agiCards = [], intCards = []
     this.state.heroes.map(hero => {
+      let validRole = true, validType = true, validName = true
+      if (role !== null) {
+        validRole = hero.roles.includes(role)
+      }
+      if (attack_type !== null) {
+        validType = hero.attack_type === attack_type
+      }
+      if (name !== null) {
+        validName = hero.localized_name === name
+      }
+      const validity =  validRole && validType && validName
       if (hero.primary_attr === "str") {
         strCards.push(
           <HeroCard
@@ -88,7 +102,7 @@ class App extends React.Component {
             attr={hero.primary_attr}
             localized_name={hero.localized_name}
             name={hero.name.split("_dota_hero_")[1]}
-            isValid={attr === null || hero[attr].includes(value) ? true : false}
+            isValid={validity}
           />
         )
       } else if (hero.primary_attr === "agi") {
@@ -100,7 +114,7 @@ class App extends React.Component {
             attr={hero.primary_attr}
             localized_name={hero.localized_name}
             name={hero.name.split("_dota_hero_")[1]}
-            isValid={attr === null || hero[attr].includes(value) ? true : false}
+            isValid={validity}
           />
         )
       } else if (hero.primary_attr === "int") {
@@ -112,35 +126,32 @@ class App extends React.Component {
             attr={hero.primary_attr}
             localized_name={hero.localized_name}
             name={hero.name.split("_dota_hero_")[1]}
-            isValid={attr === null || hero[attr].includes(value) ? true : false}
+            isValid={validity}
           />
         )
       }
     })
     this.setState({ strCards, agiCards, intCards })
   }
+  
+  filterRole = e => {
+    const target = e.target.value.substring(0, 1).toUpperCase() + e.target.value.substring(1)
+    const result = target === "By role" || target === "All" ? null : target  
+    this.setState({ role: result })
+    this.filter(result, this.state.attack_type, this.state.name)
+  }
 
   filterAttackType = e => {
-    if (e.target.value === "melee") {
-      this.filter("attack_type", "Melee")
-    } else if (e.target.value === "ranged") {
-      this.filter("attack_type", "Ranged")
-    } else {
-      this.filter(null)
-    }
+    const type = e.target.value.substring(0, 1).toUpperCase() + e.target.value.substring(1)
+    const result = type === "By attack type" || type === "All" ? null : type
+    this.setState({ attack_type: result })
+    this.filter(this.state.role, result, this.state.name)
   }
 
   filterName = e => {
-    this.filter("localized_name", e.target.value)
-  }
-
-  filterRole = e => {
-    const target = e.target.value.substring(0, 1).toUpperCase() + e.target.value.substring(1)
-    if (target === "By role" || target === "All") {
-      this.filter(null)
-    } else {
-      this.filter("roles", target)
-    }
+    const result = e.target.value === "HERO NAME" ? null : e.target.value
+    this.setState({ name: result })
+    this.filter(this.state.role, this.state.attack_type, result)
   }
 
   render() {
