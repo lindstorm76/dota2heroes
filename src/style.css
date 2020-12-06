@@ -126,10 +126,6 @@ option, select {
     width: 100%;
   }
 
-  .heading-container {
-    height: 7rem;
-  }
-
   .hero-container {
     justify-content: space-around;
   }

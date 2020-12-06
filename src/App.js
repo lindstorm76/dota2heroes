@@ -22,66 +22,9 @@ class App extends React.Component {
     }
   }
 
-  componentDidMount = () => {
-    fetch("https://api.opendota.com/api/heroes")
-    .then(res => res.json())
-    .then(heroes => {
-      const strCards = [], agiCards = [], intCards = []
-      heroes.map(hero => {
-        if (hero.primary_attr === "str") {
-          strCards.push(
-            <HeroCard
-              id={hero.id}
-              key={"hero-" + hero.id}
-              mouseOver={this.showDetail}
-              attr={hero.primary_attr}
-              localized_name={hero.localized_name}
-              name={hero.name.split("_dota_hero_")[1]}
-              isValid={true}
-            />
-          )
-        } else if (hero.primary_attr === "agi") {
-          agiCards.push(
-            <HeroCard
-              id={hero.id}
-              key={"hero-" + hero.id}
-              mouseOver={this.showDetail}
-              attr={hero.primary_attr}
-              localized_name={hero.localized_name}
-              name={hero.name.split("_dota_hero_")[1]}
-              isValid={true}
-            />
-          )
-        } else if (hero.primary_attr === "int") {
-          intCards.push(
-            <HeroCard
-              id={hero.id}
-              key={"hero-" + hero.id}
-              mouseOver={this.showDetail}
-              attr={hero.primary_attr}
-              localized_name={hero.localized_name}
-              name={hero.name.split("_dota_hero_")[1]}
-              isValid={true}
-            />
-          )
-        }
-      })
-      this.setState({ heroes, strCards, agiCards, intCards })
-    })
-  }
-  
-  showDetail = e => {
-    const hoveredHero = this.state.heroes.find(hero => hero.id === +e.target.dataset.id)
-    this.setState({
-      heading: hoveredHero.localized_name,
-      atkType: hoveredHero.attack_type,
-      desc: hoveredHero.roles.reduce((acc, cur) => acc + " - " + cur, "")
-    })
-  }
-
   filter = (role, attack_type, name) => {
     const strCards = [], agiCards = [], intCards = []
-    this.state.heroes.map(hero => {
+    this.state.heroes.forEach(hero => {
       let validRole = true, validType = true, validName = true
       if (role !== null) {
         validRole = hero.roles.includes(role)
@@ -133,6 +76,24 @@ class App extends React.Component {
     })
     this.setState({ strCards, agiCards, intCards })
   }
+
+  componentDidMount = () => {
+    fetch("https://api.opendota.com/api/heroes")
+    .then(res => res.json())
+    .then(heroes => {
+      this.setState({ heroes })
+      this.filter(null, null, null)
+    })
+  }
+  
+  showDetail = e => {
+    const hoveredHero = this.state.heroes.find(hero => hero.id === +e.target.dataset.id)
+    this.setState({
+      heading: hoveredHero.localized_name,
+      atkType: hoveredHero.attack_type,
+      desc: hoveredHero.roles.reduce((acc, cur) => acc + " - " + cur, "")
+    })
+  }
   
   filterRole = e => {
     const target = e.target.value.substring(0, 1).toUpperCase() + e.target.value.substring(1)
@@ -156,7 +117,7 @@ class App extends React.Component {
 
   render() {
 
-    const defaultOptions = {
+    const loadingOption = {
       loop: true,
       autoplay: true,
       animationData: loadingData.default,
@@ -169,19 +130,18 @@ class App extends React.Component {
       return(
         <FadeIn>
           <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "99vw", height: "95vh" }}>
-            <Lottie options={defaultOptions} height={200} width={200} />
+            <Lottie options={loadingOption} height={200} width={200} />
           </div>
         </FadeIn>
       )
     }
 
-    const names = this.state.heroes.map(hero => <option>{hero.localized_name}</option>)
+    const names = this.state.heroes.map(hero => <option key={"hero-" + hero.id}>{hero.localized_name}</option>)
 
     return(
       <div className="center-container">
         <div className="heading-container">
           <h1 className="heading">{this.state.heading}</h1>
-          {/* <h3 className="sub-heading">{this.state.atkType}<span style={{color: "gray"}}>{this.state.desc}</span></h3> */}
         </div>
         <FilterOption
           filterRole={this.filterRole}
@@ -193,15 +153,15 @@ class App extends React.Component {
           <div className="container">
             <h2 className="attr" style={{color: "#EF4444"}}>strength</h2>
             <div className="hero-container">
-              {this.state.strCards || "loading"}
+              {this.state.strCards}
             </div>
             <h2 className="attr" style={{color: "#10B981"}}>agility</h2>
             <div className="hero-container">
-              {this.state.agiCards || "loading"}
+              {this.state.agiCards}
             </div>
             <h2 className="attr" style={{color: "#3B82F6"}}>intelligence</h2>
             <div className="hero-container">
-              {this.state.intCards || "loading"}
+              {this.state.intCards}
             </div>
           </div>
         </FadeIn>

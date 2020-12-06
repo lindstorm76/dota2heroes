@@ -18,7 +18,6 @@ class HeroDetail extends React.Component {
     .then(res => res.json())
     .then(heroes => {
       this.setState({ hero: heroes.find(hero => hero.localized_name === this.props.match.params.name) })
-      console.log(this.state.hero)
     })
   }
 
@@ -33,14 +32,6 @@ class HeroDetail extends React.Component {
       }
     }
 
-    const defaultOptions = {
-      loop: true,
-      autoplay: true,
-      animationData: loadingData.default,
-      rendererSettings: {
-        preserveAspectRatio: "xMidYMid slice"
-      }
-    }
     const notfoundOption = {
       loop: true,
       autoplay: true,
@@ -75,7 +66,7 @@ class HeroDetail extends React.Component {
     switch (this.state.hero.primary_attr) {
       case "str": color = "#EF4444"; attr = "strength"; src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/7/7a/Strength_attribute_symbol.png"; break;
       case "agi": color = "#10B981"; attr = "agility"; src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/2/2d/Agility_attribute_symbol.png"; break;
-      case "int": color = "#3B82F6"; attr = "inteligence"; src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/5/56/Intelligence_attribute_symbol.png"; break;
+      default: color = "#3B82F6"; attr = "inteligence"; src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/5/56/Intelligence_attribute_symbol.png"; break;
     }
 
     return(
@@ -84,12 +75,12 @@ class HeroDetail extends React.Component {
         <FadeIn>
           <center>
             <img
+              alt={this.state.hero.name}
               src={`http://cdn.dota2.com/apps/dota2/images/heroes/${this.state.hero.name.split("_dota_hero_")[1]}_full.png`}
               style={{width: "20rem"}}
             />
-            
           <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-          <img style={{width: "2.5rem", height: "2.5rem", margin: "0 .5rem"}} src={src} />
+          <img alt={this.state.hero.primary_attr} style={{width: "2.5rem", height: "2.5rem", margin: "0 .5rem"}} src={src} />
           <h2 className="attr" style={{color}}>{attr}</h2>
           </div>
           <h3 className="sub-heading">{this.state.hero.attack_type}<span style={{color: "gray"}}>{roles}</span></h3>
