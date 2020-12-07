@@ -5,7 +5,7 @@ class FilterOption extends React.Component {
   render() {
     return(
       <div className="filter">
-        <p>filter</p>
+        <p>FILTER</p>
         <select id="role" onChange={this.props.filterRole}>
           <option>BY ROLE</option>
           <option>ALL</option>
