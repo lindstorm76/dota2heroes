@@ -7,24 +7,24 @@ class FilterOption extends React.Component {
       <div className="filter">
         <p>filter</p>
         <select id="role" onChange={this.props.filterRole}>
-          <option>by role</option>
-          <option>all</option>
-          <option>carry</option>
-          <option>disabler</option>
-          <option>lane support</option>
-          <option>initiator</option>
-          <option>jungler</option>
-          <option>support</option>
-          <option>durable</option>
-          <option>nuker</option>
-          <option>pusher</option>
-          <option>escape</option>
+          <option>BY ROLE</option>
+          <option>ALL</option>
+          <option>CARRY</option>
+          <option>DISABLER</option>
+          <option>LANE SUPPORT</option>
+          <option>INITIATOR</option>
+          <option>JUNGLER</option>
+          <option>SUPPORT</option>
+          <option>DURABLE</option>
+          <option>NUKER</option>
+          <option>PUSHER</option>
+          <option>ESCAPE</option>
         </select>
         <select id="atk_type" onChange={this.props.filterAttackType}>
-          <option>by attack type</option>
-          <option>all</option>
-          <option>melee</option>
-          <option>ranged</option>
+          <option>BY ATTACK TYPE</option>
+          <option>ALL</option>
+          <option>MELEE</option>
+          <option>RANGED</option>
         </select>
         <select id="name" onChange={this.props.filterName}>
           <option>HERO NAME</option>

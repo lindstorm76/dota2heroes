@@ -96,14 +96,14 @@ class App extends React.Component {
   }
   
   filterRole = e => {
-    const target = e.target.value.substring(0, 1).toUpperCase() + e.target.value.substring(1)
+    const target = e.target.value.substring(0, 1).toUpperCase() + e.target.value.substring(1).toLowerCase()
     const result = target === "By role" || target === "All" ? null : target  
     this.setState({ role: result })
     this.filter(result, this.state.attack_type, this.state.name)
   }
 
   filterAttackType = e => {
-    const type = e.target.value.substring(0, 1).toUpperCase() + e.target.value.substring(1)
+    const type = e.target.value.substring(0, 1).toUpperCase() + e.target.value.substring(1).toLowerCase()
     const result = type === "By attack type" || type === "All" ? null : type
     this.setState({ attack_type: result })
     this.filter(this.state.role, result, this.state.name)

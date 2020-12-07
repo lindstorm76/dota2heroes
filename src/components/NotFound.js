@@ -15,7 +15,7 @@ class NotFound extends React.Component {
     }
     return(
       <FadeIn>
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "99vw", height: "95vh" }}>
+        <div className="notfound-container">
           <Lottie options={notfoundOption} height={400} width={400} />
         </div>
       </FadeIn>

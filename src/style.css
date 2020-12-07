@@ -55,12 +55,8 @@ body::-webkit-scrollbar-thumb {
   text-align: center;
 }
 
-.heading, select#role, select#atk_type, option, option, .filter {
+.heading {
   text-transform: uppercase;
-}
-
-select#name option {
-  text-transform: none;
 }
 
 .heading {
@@ -139,4 +135,12 @@ option, select {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.notfound-container {
+  display: "flex";
+  justify-content: "center";
+  align-items: "center";
+  width: "100vw";
+  height: "100vh"
 }
