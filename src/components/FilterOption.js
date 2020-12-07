@@ -26,7 +26,7 @@ class FilterOption extends React.Component {
           <option>melee</option>
           <option>ranged</option>
         </select>
-        <select onChange={this.props.filterName}>
+        <select id="name" onChange={this.props.filterName}>
           <option>HERO NAME</option>
           {this.props.names}
         </select>

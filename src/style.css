@@ -55,8 +55,12 @@ body::-webkit-scrollbar-thumb {
   text-align: center;
 }
 
-.heading, select#role, select#atk_type, select#role option, select#atk_type option, .filter {
+.heading, select#role, select#atk_type, option, option, .filter {
   text-transform: uppercase;
+}
+
+select#name option {
+  text-transform: none;
 }
 
 .heading {

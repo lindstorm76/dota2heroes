@@ -136,8 +136,10 @@ class App extends React.Component {
       )
     }
 
-    const names = this.state.heroes.map(hero => <option key={"hero-" + hero.id}>{hero.localized_name}</option>)
-
+    const names = this.state.heroes.map(hero => hero.localized_name).sort().map(name => {
+      return <option key={"hero-" + name}>{name}</option>
+    })
+    
     return(
       <div className="center-container">
         <div className="heading-container">
