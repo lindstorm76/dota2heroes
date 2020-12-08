@@ -76,7 +76,7 @@ class HeroDetail extends React.Component {
           <center>
             <img
               alt={this.state.hero.name}
-              src={`http://cdn.dota2.com/apps/dota2/images/heroes/${this.state.hero.name.split("_dota_hero_")[1]}_full.png`}
+              src={`https://cdn.dota2.com/apps/dota2/images/heroes/${this.state.hero.name.split("_dota_hero_")[1]}_full.png`}
               style={{width: "20rem"}}
             />
           <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
