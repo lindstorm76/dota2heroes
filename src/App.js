@@ -81,7 +81,7 @@ class App extends React.Component {
     fetch("https://api.opendota.com/api/heroes")
     .then(res => res.json())
     .then(heroes => {
-      this.setState({ heroes })
+      this.setState({ heroes: heroes.sort((a, b) => a.name > b.name ? 1 : -1) })
       this.filter(null, null, null)
     })
   }
