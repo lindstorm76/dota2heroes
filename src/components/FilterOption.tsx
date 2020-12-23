@@ -1,6 +1,13 @@
 import React from "react"
 
-class FilterOption extends React.Component {
+interface Props {
+  filterRole: (e: any) => void,
+  filterAttackType: (e: any) => void,
+  filterName: (e: any) => void,
+  names: any
+}
+
+class FilterOption extends React.Component<Props> {
 
   render() {
     return(

@@ -1,60 +1,66 @@
 import React from "react"
-import HeroCard from "./components/HeroCard"
+import { HeroCard } from "./components/HeroCard"
 import * as loadingData from "./loading.json"
 import FadeIn from "react-fade-in"
 import Lottie from "react-lottie"
 import FilterOption from "./components/FilterOption"
 
-class App extends React.Component {
+class App extends React.Component<{}> {
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      heading: "Dota 2 Heroes",
-      atkType: "Hover on any hero to reveal their roles...",
-      desc: null,
-      role: null,
-      attack_type: null,
-      name: null
-    }
+  state: {
+    heading: string,
+    atkType: string,
+    desc: string | null,
+    role: string | null,
+    attack_type: string | null,
+    name: string | null,
+    heroes: {}[] | null
+  } = {
+    heading: "Dota 2 Heroes",
+    atkType: "Hover on any hero to reveal their roles...",
+    desc: null,
+    role: null,
+    attack_type: null,
+    name: null,
+    heroes: null
   }
 
   componentDidMount = () => {
     fetch("https://api.opendota.com/api/heroes")
     .then(res => res.json())
     .then(heroes => {
-      this.setState({ heroes: heroes.sort((a, b) => a.name > b.name ? 1 : -1) })
+      this.setState({ heroes: heroes.sort((a: any, b: any) => a.name > b.name ? 1 : -1) })
     })
   }
   
-  showDetail = e => {
-    const hoveredHero = this.state.heroes.find(hero => hero.id === +e.target.dataset.id)
+  showDetail = (e: any): void => {
+    const hoveredHero: any = this.state.heroes.find((hero: any) => hero.id === +e.target.dataset.id)
     this.setState({
       heading: hoveredHero.localized_name,
       atkType: hoveredHero.attack_type,
-      desc: hoveredHero.roles.reduce((acc, cur) => acc + " - " + cur, "")
+      desc: hoveredHero.roles.reduce((acc: any, cur: any) => acc + " - " + cur, "")
     })
   }
 
-  capitalize = word => (
+  capitalize = (word: string) => (
     word[0].toUpperCase() + word.substring(1).toLowerCase()
   )
   
-  filterRole = e => {
+  filterRole = (e: any): void => {
     const target = this.capitalize(e.target.value)
     this.setState({
       role: target === "By role" || target === "All" ? null : target
     })
   }
 
-  filterAttackType = e => {
+  filterAttackType = (e: any): void => {
     const type = this.capitalize(e.target.value)
     this.setState({
       attack_type: type === "By attack type" || type === "All" ? null : type
     })
   }
 
-  filterName = e => {
+  filterName = (e: any): void => {
     this.setState({
       name: e.target.value === "HERO NAME" ? null : e.target.value
     })
@@ -65,7 +71,7 @@ class App extends React.Component {
     const loadingOptions = {
       loop: true,
       autoplay: true,
-      animationData: loadingData.default,
+      animationData: loadingData,
       rendererSettings: {
         preserveAspectRatio: "xMidYMid slice"
       }
@@ -88,8 +94,8 @@ class App extends React.Component {
       )
     }
 
-    const strCards = [], agiCards = [], intCards = []
-    this.state.heroes.forEach(hero => {
+    const strCards: any = [], agiCards: any = [], intCards: any = []
+    this.state.heroes.forEach((hero: any) => {
       let validRole = true, validType = true, validName = true
       const { role, attack_type, name } = this.state
       if (role !== null) {
@@ -141,7 +147,7 @@ class App extends React.Component {
       }
     })
 
-    const names = this.state.heroes.map(hero => hero.localized_name).sort().map(name => {
+    const names = this.state.heroes.map((hero: any) => hero.localized_name).sort().map(name => {
       return <option key={"hero-" + name}>{name}</option>
     })
     

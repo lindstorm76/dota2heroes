@@ -4,20 +4,23 @@ import Lottie from "react-lottie"
 import * as loadingData from "../loading.json"
 import * as notfound from "../notfound.json"
 
-class HeroDetail extends React.Component {
+interface Props {
+  match: any
+}
 
-  constructor(props) {
-    super(props)
-    this.state = {
-      hero: null
-    }
+class HeroDetail extends React.Component<Props> {
+
+  state: {
+    hero: any | null
+  } = {
+    hero: null
   }
 
   componentDidMount = () => {
     fetch("https://api.opendota.com/api/heroes")
     .then(res => res.json())
     .then(heroes => {
-      this.setState({ hero: heroes.find(hero => hero.localized_name === this.props.match.params.name) })
+      this.setState({ hero: heroes.find((hero: any) => hero.localized_name === this.props.match.params.name) })
     })
   }
 
@@ -26,7 +29,7 @@ class HeroDetail extends React.Component {
     const loadingOption = {
       loop: true,
       autoplay: true,
-      animationData: loadingData.default,
+      animationData: loadingData,
       rendererSettings: {
         preserveAspectRatio: "xMidYMid slice"
       }
@@ -35,7 +38,7 @@ class HeroDetail extends React.Component {
     const notfoundOption = {
       loop: true,
       autoplay: true,
-      animationData: notfound.default,
+      animationData: notfound,
       rendererSettings: {
         preserveAspectRatio: "xMidYMid slice"
       }
@@ -61,7 +64,7 @@ class HeroDetail extends React.Component {
       )
     }
 
-    const roles = this.state.hero.roles.reduce((acc, cur) => acc + " - " + cur, "")
+    const roles = this.state.hero.roles.reduce((acc: string, cur: string) => acc + " - " + cur, "")
     let color, attr, src
     switch (this.state.hero.primary_attr) {
       case "str": color = "#EF4444"; attr = "strength"; src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/7/7a/Strength_attribute_symbol.png"; break;
@@ -73,18 +76,18 @@ class HeroDetail extends React.Component {
       <div className="center-container">
         <h1 className="heading">{this.state.hero.localized_name}</h1>
         <FadeIn>
-          <center>
+          <div className="hero-image-container">
             <img
               alt={this.state.hero.name}
               src={`https://cdn.dota2.com/apps/dota2/images/heroes/${this.state.hero.name.split("_dota_hero_")[1]}_full.png`}
               style={{width: "20rem"}}
             />
+          </div>
           <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
           <img alt={this.state.hero.primary_attr} style={{width: "2.5rem", height: "2.5rem", margin: "0 .5rem"}} src={src} />
           <h2 className="attr" style={{color}}>{attr}</h2>
           </div>
           <h3 className="sub-heading">{this.state.hero.attack_type}<span style={{color: "gray"}}>{roles}</span></h3>
-          </center>
         </FadeIn>
       </div>
       

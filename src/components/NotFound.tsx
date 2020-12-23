@@ -1,14 +1,14 @@
 import React from "react"
-import * as notfound from "../notfound.json"
+import notfound from "./notfound.json"
 import FadeIn from "react-fade-in"
 import Lottie from "react-lottie"
 
-class NotFound extends React.Component {
+class NotFound extends React.Component<{}> {
   render() {
     const notfoundOption = {
       loop: true,
       autoplay: true,
-      animationData: notfound.default,
+      animationData: notfound,
       rendererSettings: {
         preserveAspectRatio: "xMidYMid slice"
       }
