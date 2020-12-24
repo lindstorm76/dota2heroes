@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom'
 import App from './App'
 import HeroDetail from "./components/HeroDetail"
-import NotFound from "./components/NotFound"
+import { NotFound } from "./components/NotFound"
 import "./style.css"
 import {
   BrowserRouter as Router,
