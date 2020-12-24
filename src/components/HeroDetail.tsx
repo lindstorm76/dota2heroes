@@ -1,8 +1,8 @@
 import React from "react"
 import FadeIn from "react-fade-in"
 import Lottie from "react-lottie"
-import * as loadingData from "../loading.json"
-import * as notfound from "../notfound.json"
+import loadingData from "../loading.json"
+import notfound from "../notfound.json"
 
 interface Props {
   match: any

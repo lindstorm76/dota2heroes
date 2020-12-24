@@ -1,5 +1,5 @@
 import React from "react"
-import notfound from "./notfound.json"
+import notfound from "../notfound.json"
 import FadeIn from "react-fade-in"
 import Lottie from "react-lottie"
 

@@ -2,7 +2,6 @@ import React from 'react'
 
 type Props = {
   id: string,
-  key: string
   mouseOver: (e: any) => void,
   attr: string
   localized_name: string
@@ -11,7 +10,7 @@ type Props = {
 }
 
 export const HeroCard: React.FC<Props> = ({
-  id, key, mouseOver, attr, localized_name, name, isValid
+  id, mouseOver, attr, localized_name, name, isValid
 }) => {
   const handleRedirect = (): void => {
     window.location.href = `/${localized_name}`
@@ -20,7 +19,7 @@ export const HeroCard: React.FC<Props> = ({
   return(
     <div className="hero-card">
       <img
-        key={"hero-img-" + id}
+        key={`hero-${id}`}
         onClick={handleRedirect}
         onMouseOver={isValid ? mouseOver : () => {}}
         className={`${isValid ? "hover" : ""} ${isValid ? attr : ""}`}

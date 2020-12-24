@@ -1,6 +1,6 @@
 import React from "react"
 import { HeroCard } from "./components/HeroCard"
-import * as loadingData from "./loading.json"
+import loadingData from "./loading.json"
 import FadeIn from "react-fade-in"
 import Lottie from "react-lottie"
 import FilterOption from "./components/FilterOption"
@@ -112,7 +112,7 @@ class App extends React.Component<{}> {
         strCards.push(
           <HeroCard
             id={hero.id}
-            key={"hero-" + hero.id}
+            key={`hero-${hero.id}`}
             mouseOver={this.showDetail}
             attr={hero.primary_attr}
             localized_name={hero.localized_name}
@@ -124,7 +124,7 @@ class App extends React.Component<{}> {
         agiCards.push(
           <HeroCard
             id={hero.id}
-            key={"hero-" + hero.id}
+            key={`hero-${hero.id}`}
             mouseOver={this.showDetail}
             attr={hero.primary_attr}
             localized_name={hero.localized_name}
@@ -136,7 +136,7 @@ class App extends React.Component<{}> {
         intCards.push(
           <HeroCard
             id={hero.id}
-            key={"hero-" + hero.id}
+            key={`hero-${hero.id}`}
             mouseOver={this.showDetail}
             attr={hero.primary_attr}
             localized_name={hero.localized_name}
