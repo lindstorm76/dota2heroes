@@ -18,7 +18,7 @@ Dota 2 Heroes is a web project that mimics Dota 2 official heroes detail [site](
 
 The project is hosted via [Vercel](https://vercel.com/) as it is a static site.
 
-[dota2heroes.vercel.app](dota2heroes.vercel.app)
+[dota2heroes.vercel.app](https://dota2heroes.vercel.app)
 
 [dota2heroes.lindstorm75.vercel.app](https://dota2heroes.lindstorm75.vercel.app/)
 
