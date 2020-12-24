@@ -3,7 +3,7 @@
 
 # About
 
-Dota 2 Heroes is a web project that mimics Dota 2 official heroes detail [site](https://www.dota2.com/heroes/) in term of filtering heroes, hovering on each of them and each hero's detail page. The hero cards is inspired by the . This project was developed primarily on **React.js** (with Vanilla JS), **CSS5** and **HTML**. I recently converted all the JS code to [TypeScript](https://www.typescriptlang.org/).
+Dota 2 Heroes is a web project that mimics Dota 2 official heroes detail [site](https://www.dota2.com/heroes/) in term of filtering heroes, hovering on each of them and each hero's detail page. The hero cards is inspired by the . This project was developed primarily on **React.js** (with Vanilla JS), **CSS5** and **HTML**. I recently converted all the JS code to [TypeScript](https://www.typescriptlang.org/) (for statically type-checking).
 
 # Features
 🐱‍🐉 You can hover on each hero to see their name.
