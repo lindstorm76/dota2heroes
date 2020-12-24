@@ -1,6 +1,6 @@
 import React, { MouseEvent } from 'react'
 
-type Props = {
+type HeroCardProps = {
   id: string,
   mouseOver: (e: MouseEvent<HTMLImageElement>) => void,
   attr: string
@@ -9,7 +9,7 @@ type Props = {
   isValid: boolean
 }
 
-export const HeroCard: React.FC<Props> = ({
+export const HeroCard: React.FC<HeroCardProps> = ({
   id, mouseOver, attr, localized_name, name, isValid
 }) => {
   const handleRedirect = (): void => {
