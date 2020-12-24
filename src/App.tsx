@@ -147,9 +147,11 @@ class App extends React.Component<{}> {
       }
     })
 
-    const names = this.state.heroes.map((hero: any) => hero.localized_name).sort().map(name => {
-      return <option key={"hero-" + name}>{name}</option>
-    })
+    const names: Array<JSX.Element> = this.state.heroes.map((hero: any) => (
+      hero.localized_name
+    )).sort().map(name => (
+      <option key={"hero-" + name}>{name}</option>
+    ))
     
     return (
       <div className="center-container">

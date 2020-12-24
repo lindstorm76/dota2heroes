@@ -26,7 +26,7 @@ class HeroDetail extends React.Component<Props> {
 
   render() {
 
-    const loadingOption = {
+    const loadingOption: any = {
       loop: true,
       autoplay: true,
       animationData: loadingData,
@@ -35,7 +35,7 @@ class HeroDetail extends React.Component<Props> {
       }
     }
 
-    const notfoundOption = {
+    const notfoundOption: any = {
       loop: true,
       autoplay: true,
       animationData: notfound,

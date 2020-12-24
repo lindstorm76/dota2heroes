@@ -4,13 +4,13 @@ interface Props {
   filterRole: (e: any) => void,
   filterAttackType: (e: any) => void,
   filterName: (e: any) => void,
-  names: any
+  names: Array<JSX.Element>
 }
 
 class FilterOption extends React.Component<Props> {
 
   render() {
-    return(
+    return (
       <div className="filter">
         <p>FILTER</p>
         <select id="role" onChange={this.props.filterRole}>
