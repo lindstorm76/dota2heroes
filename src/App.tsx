@@ -1,4 +1,4 @@
-import React from "react"
+import React, { ChangeEvent } from "react"
 import { HeroCard } from "./components/HeroCard"
 import loadingData from "./loading.json"
 import FadeIn from "react-fade-in"
@@ -14,7 +14,7 @@ class App extends React.Component<{}> {
     role: string | null,
     attack_type: string | null,
     name: string | null,
-    heroes: {}[] | null
+    heroes: Array<Object> | null
   } = {
     heading: "Dota 2 Heroes",
     atkType: "Hover on any hero to reveal their roles...",
@@ -25,7 +25,7 @@ class App extends React.Component<{}> {
     heroes: null
   }
 
-  componentDidMount = () => {
+  componentDidMount = (): void => {
     fetch("https://api.opendota.com/api/heroes")
     .then(res => res.json())
     .then(heroes => {
@@ -42,25 +42,27 @@ class App extends React.Component<{}> {
     })
   }
 
-  capitalize = (word: string) => (
+  capitalize = (word: string): string => (
     word[0].toUpperCase() + word.substring(1).toLowerCase()
   )
   
-  filterRole = (e: any): void => {
+  // This method is only invoked if a select element changes.
+  // Each event that is invoked doesn't have the same type of event.
+  filterRole = (e: ChangeEvent<HTMLSelectElement>): void => {
     const target = this.capitalize(e.target.value)
     this.setState({
       role: target === "By role" || target === "All" ? null : target
     })
   }
 
-  filterAttackType = (e: any): void => {
+  filterAttackType = (e: ChangeEvent<HTMLSelectElement>): void => {
     const type = this.capitalize(e.target.value)
     this.setState({
       attack_type: type === "By attack type" || type === "All" ? null : type
     })
   }
 
-  filterName = (e: any): void => {
+  filterName = (e: ChangeEvent<HTMLSelectElement>): void => {
     this.setState({
       name: e.target.value === "HERO NAME" ? null : e.target.value
     })
@@ -68,7 +70,7 @@ class App extends React.Component<{}> {
 
   render() {
 
-    const loadingOptions = {
+    const loadingOptions: any = {
       loop: true,
       autoplay: true,
       animationData: loadingData,
@@ -94,9 +96,13 @@ class App extends React.Component<{}> {
       )
     }
 
-    const strCards: any = [], agiCards: any = [], intCards: any = []
+    const strCards: Array<JSX.Element> = [],
+          agiCards: Array<JSX.Element> = [],
+          intCards: Array<JSX.Element> = []
     this.state.heroes.forEach((hero: any) => {
-      let validRole = true, validType = true, validName = true
+      let validRole: boolean = true,
+          validType: boolean = true,
+          validName: boolean = true
       const { role, attack_type, name } = this.state
       if (role !== null) {
         validRole = hero.roles.includes(role)
@@ -107,7 +113,7 @@ class App extends React.Component<{}> {
       if (name !== null) {
         validName = hero.localized_name === name
       }
-      const validity =  validRole && validType && validName
+      const validity: boolean = validRole && validType && validName
       if (hero.primary_attr === "str") {
         strCards.push(
           <HeroCard
@@ -149,7 +155,7 @@ class App extends React.Component<{}> {
 
     const names: Array<JSX.Element> = this.state.heroes.map((hero: any) => (
       hero.localized_name
-    )).sort().map(name => (
+    )).sort().map((name: string) => (
       <option key={"hero-" + name}>{name}</option>
     ))
     

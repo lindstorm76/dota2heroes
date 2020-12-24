@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { MouseEvent } from 'react'
 
 type Props = {
   id: string,
-  mouseOver: (e: any) => void,
+  mouseOver: (e: MouseEvent<HTMLImageElement>) => void,
   attr: string
   localized_name: string
   name: string

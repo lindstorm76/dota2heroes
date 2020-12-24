@@ -3,8 +3,8 @@ import notfound from "../notfound.json"
 import FadeIn from "react-fade-in"
 import Lottie from "react-lottie"
 
-export const NotFound: React.FC<{}> = () => {
-  const notfoundOption = {
+export const NotFound: React.FC = () => {
+  const notfoundOption: any = {
     loop: true,
     autoplay: true,
     animationData: notfound,

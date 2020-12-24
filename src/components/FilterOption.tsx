@@ -1,9 +1,9 @@
-import React from "react"
+import React, { ChangeEvent } from "react"
 
 interface Props {
-  filterRole: (e: any) => void,
-  filterAttackType: (e: any) => void,
-  filterName: (e: any) => void,
+  filterRole: (e: ChangeEvent<HTMLSelectElement>) => void,
+  filterAttackType: (e: ChangeEvent<HTMLSelectElement>) => void,
+  filterName: (e: ChangeEvent<HTMLSelectElement>) => void,
   names: Array<JSX.Element>
 }
 

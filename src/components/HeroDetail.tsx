@@ -4,11 +4,11 @@ import Lottie from "react-lottie"
 import loadingData from "../loading.json"
 import notfound from "../notfound.json"
 
-interface Props {
+interface HeroDetailProps {
   match: any
 }
 
-class HeroDetail extends React.Component<Props> {
+class HeroDetail extends React.Component<HeroDetailProps> {
 
   state: {
     hero: any | null
@@ -64,15 +64,24 @@ class HeroDetail extends React.Component<Props> {
       )
     }
 
-    const roles = this.state.hero.roles.reduce((acc: string, cur: string) => acc + " - " + cur, "")
-    let color, attr, src
-    switch (this.state.hero.primary_attr) {
-      case "str": color = "#EF4444"; attr = "strength"; src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/7/7a/Strength_attribute_symbol.png"; break;
-      case "agi": color = "#10B981"; attr = "agility"; src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/2/2d/Agility_attribute_symbol.png"; break;
-      default: color = "#3B82F6"; attr = "inteligence"; src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/5/56/Intelligence_attribute_symbol.png"; break;
+    const roles: string = this.state.hero.roles.reduce((acc: string, cur: string) => acc + " - " + cur, "")
+    let color: string, attr: string, src: string
+    const { primaryAttr } = this.state.hero.primary_attr
+    if (primaryAttr === "str") {
+      color = "#EF4444"
+      attr = "strength"
+      src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/7/7a/Strength_attribute_symbol.png"
+    } else if (primaryAttr === "agi") {
+      color = "#10B981"
+      attr = "agility"
+      src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/2/2d/Agility_attribute_symbol.png"
+    } else {
+      color = "#3B82F6"
+      attr = "inteligence"
+      src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/5/56/Intelligence_attribute_symbol.png"
     }
 
-    return(
+    return (
       <div className="center-container">
         <h1 className="heading">{this.state.hero.localized_name}</h1>
         <FadeIn>
