@@ -17,5 +17,5 @@ ReactDOM.render(
       <Route path="*" component={NotFound} />
     </Switch>
   </Router>,
-  document.getElementById('root')
+  document.getElementById('root') as HTMLDivElement
 )

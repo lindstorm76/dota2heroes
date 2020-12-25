@@ -1,9 +1,9 @@
-import React, { ChangeEvent } from "react"
+import React, { ChangeEvent, MouseEvent } from "react"
 import { HeroCard } from "./components/HeroCard"
 import loadingData from "./loading.json"
 import FadeIn from "react-fade-in"
 import Lottie from "react-lottie"
-import FilterOption from "./components/FilterOption"
+import { FilterOption } from "./components/FilterOption"
 
 class App extends React.Component<{}> {
 
@@ -68,7 +68,7 @@ class App extends React.Component<{}> {
     })
   }
 
-  render() {
+  render(): JSX.Element {
 
     const loadingOptions: any = {
       loop: true,

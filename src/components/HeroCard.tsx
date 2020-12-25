@@ -11,12 +11,12 @@ type HeroCardProps = {
 
 export const HeroCard: React.FC<HeroCardProps> = ({
   id, mouseOver, attr, localized_name, name, isValid
-}) => {
+}): JSX.Element => {
   const handleRedirect = (): void => {
     window.location.href = `/${localized_name}`
   }
 
-  return(
+  return (
     <div className="hero-card">
       <img
         key={`hero-${id}`}

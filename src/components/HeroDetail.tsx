@@ -16,7 +16,7 @@ class HeroDetail extends React.Component<HeroDetailProps> {
     hero: null
   }
 
-  componentDidMount = () => {
+  componentDidMount = (): void => {
     fetch("https://api.opendota.com/api/heroes")
     .then(res => res.json())
     .then(heroes => {
@@ -24,7 +24,7 @@ class HeroDetail extends React.Component<HeroDetailProps> {
     })
   }
 
-  render() {
+  render(): JSX.Element {
 
     const loadingOption: any = {
       loop: true,

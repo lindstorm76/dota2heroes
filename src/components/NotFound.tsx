@@ -1,9 +1,8 @@
 import React from "react"
 import notfound from "../notfound.json"
-import FadeIn from "react-fade-in"
 import Lottie from "react-lottie"
 
-export const NotFound: React.FC = () => {
+export const NotFound: React.FC = (): JSX.Element => {
   const notfoundOption: any = {
     loop: true,
     autoplay: true,
@@ -13,10 +12,8 @@ export const NotFound: React.FC = () => {
     }
   }
   return(
-    <FadeIn>
-      <div className="notfound-container">
-        <Lottie options={notfoundOption} height={400} width={400} />
-      </div>
-    </FadeIn>
+    <div className="notfound-container">
+      <Lottie options={notfoundOption} height={400} width={400} />
+    </div>
   )
 }
