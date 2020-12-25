@@ -3,9 +3,9 @@
 
 # About
 
-[![forthebadge](https://forthebadge.com/images/badges/made-with-typescript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-typescript.svg)](https://www.typescriptlang.org/) [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://www.javascript.com/)
 
-[![forthebadge](https://forthebadge.com/images/badges/uses-git.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/uses-git.svg)](https://git-scm.com/) [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://en.wikipedia.org/wiki/HTML5) [![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://en.wikipedia.org/wiki/CSS)
 
 Dota 2 Heroes is a web project that mimics Dota 2 official heroes detail [site](https://www.dota2.com/heroes/) in term of filtering heroes, hovering on each of them and each hero's detail page. The hero cards is inspired by the in-game hero picking screen.
 
