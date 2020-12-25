@@ -36,7 +36,7 @@ The project is hosted via [Vercel](https://vercel.com/) as it is a static site.
 Use Node.js package manager [npm](https://nodejs.org/en/) to install modules needed for the project.
 
 ```bash
-npm i
+npm install
 ```
 Run the project locally via npm or [yarn](https://yarnpkg.com/)
 ```bash
