@@ -150,3 +150,9 @@ option, select {
   justify-content: center;
   align-items: center;
 }
+
+.hero-attribute {
+  width: 2.5rem;
+  height: 2.5rem;
+  margin: 0 .5rem
+}

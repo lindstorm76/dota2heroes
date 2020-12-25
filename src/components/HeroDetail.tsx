@@ -93,7 +93,7 @@ class HeroDetail extends React.Component<HeroDetailProps> {
             />
           </div>
           <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-          <img alt={this.state.hero.primary_attr} style={{width: "2.5rem", height: "2.5rem", margin: "0 .5rem"}} src={src} />
+          <img alt={this.state.hero.primary_attr} className="hero-attribute" src={src} />
           <h2 className="attr" style={{color}}>{attr}</h2>
           </div>
           <h3 className="sub-heading">{this.state.hero.attack_type}<span style={{color: "gray"}}>{roles}</span></h3>

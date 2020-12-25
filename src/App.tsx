@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent } from "react"
+import React, { ChangeEvent } from "react"
 import { HeroCard } from "./components/HeroCard"
 import loadingData from "./loading.json"
 import FadeIn from "react-fade-in"
