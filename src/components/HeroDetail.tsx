@@ -13,14 +13,14 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
 }): JSX.Element => {
   const [hero, setHero] = useState(null)
   useEffect((): void => {
-    fetch("https://api.opendota.com/api/heroes")
-    .then(res => res.json())
-    .then(heroes => {
+    (async (): Promise<void> => {
+      const res = await fetch("https://api.opendota.com/api/heroes")
+      const heroes = await res.json()
       const target = heroes.find((hero: any) => (
         hero.localized_name === match.params.name
       ))
       setHero(target)
-    })
+    })()
   }, [match])
 
   if (hero === null) {
