@@ -3,6 +3,10 @@
 
 # About
 
+[![forthebadge](https://forthebadge.com/images/badges/made-with-typescript.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/made-with-javascript.svg)](https://forthebadge.com)
+
+[![forthebadge](https://forthebadge.com/images/badges/uses-git.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/uses-html.svg)](https://forthebadge.com) [![forthebadge](https://forthebadge.com/images/badges/uses-css.svg)](https://forthebadge.com)
+
 Dota 2 Heroes is a web project that mimics Dota 2 official heroes detail [site](https://www.dota2.com/heroes/) in term of filtering heroes, hovering on each of them and each hero's detail page. The hero cards is inspired by the in-game hero picking screen.
 
 This project was developed primarily on **React.js** (with Vanilla JS), **CSS5** and **HTML**. I recently converted all the JS code to [TypeScript](https://www.typescriptlang.org/) (for statically type-checking).
@@ -41,4 +45,4 @@ npm start
 yarn start
 ```
 
-### Made with ❤ by Thanapong Angkha
+### [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) by Thanapong Angkha
