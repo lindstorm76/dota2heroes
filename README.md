@@ -14,11 +14,17 @@ This project was developed primarily on **React.js** (with Vanilla JS), **CSS5**
 # Features
 🐱‍🐉 You can hover on each hero to see their name.
 
+![HoveringOnAHero](https://github.com/lindstorm75/dota2heroes/blob/master/images/HoveringOnAHero.PNG?raw=true)
+
 🐱‍🚀 You can filter heroes using their roles, attack types or names. Any hero that does not match the filter condition will be dimmed and you can no longer hover over them.
- 
+
 🐱‍💻 You can combine multiple filter conditions together for example **Carry** + **Ranged** + **Drow Ranger**
 
+ ![FilteringHeroes](https://github.com/lindstorm75/dota2heroes/blob/master/images/FilteringHeroes.PNG?raw=true)
+
 🐱‍👓 You can click on any hero to see more of their detail like their **roles** or **primary attribute**.
+
+ ![HeroDetail](https://github.com/lindstorm75/dota2heroes/blob/master/images/HeroDetail.PNG?raw=true)
 
 ## Hosting
 
