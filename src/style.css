@@ -156,3 +156,11 @@ option, select {
   height: 2.5rem;
   margin: 0 .5rem
 }
+
+.animation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 99vw;
+  height: 95vh;
+}
