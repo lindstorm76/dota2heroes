@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import FadeIn from "react-fade-in"
-import Lottie from "react-lottie"
-import loadingData from "../loading.json"
+import loading from "../loading.json"
 import notfound from "../notfound.json"
+import { Animation } from "./Animation"
 
 interface HeroDetailProps {
   match: any
@@ -16,46 +16,22 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
     fetch("https://api.opendota.com/api/heroes")
     .then(res => res.json())
     .then(heroes => {
-      const target = heroes.find((hero: any) => hero.localized_name === match.params.name)
+      const target = heroes.find((hero: any) => (
+        hero.localized_name === match.params.name
+      ))
       setHero(target)
     })
-  }, [match]) 
-
-  const loadingOption: any = {
-    loop: true,
-    autoplay: true,
-    animationData: loadingData,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
-  }
-
-  const notfoundOption: any = {
-    loop: true,
-    autoplay: true,
-    animationData: notfound,
-    rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice"
-    }
-  }
+  }, [match])
 
   if (hero === null) {
-    return(
-      <FadeIn>
-        <div className="animation-container">
-          <Lottie options={loadingOption} height={200} width={200} />
-        </div>
-      </FadeIn>
+    return (
+      <Animation animation={loading} width={200} height={200} />
     )
   }
 
   if (hero === undefined) {
-    return(
-      <FadeIn>
-        <div className="animation-container">
-          <Lottie options={notfoundOption} height={400} width={400} />
-        </div>
-      </FadeIn>
+    return (
+      <Animation animation={notfound} width={500} height={500} />
     )
   }
 
@@ -94,6 +70,5 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
         <h3 className="sub-heading">{hero.attack_type}<span style={{color: "gray"}}>{roles}</span></h3>
       </FadeIn>
     </div>
-    
   )
 }
