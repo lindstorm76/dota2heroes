@@ -45,4 +45,6 @@ npm start
 yarn start
 ```
 
-### [![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com) by Thanapong Angkha
+[![forthebadge](https://forthebadge.com/images/badges/built-with-love.svg)](https://forthebadge.com)
+
+### by Thanapong Angkha
