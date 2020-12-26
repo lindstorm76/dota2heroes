@@ -1,103 +1,70 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import FadeIn from "react-fade-in"
-import Lottie from "react-lottie"
-import loadingData from "../loading.json"
+import loading from "../loading.json"
 import notfound from "../notfound.json"
+import { Animation } from "./Animation"
 
 interface HeroDetailProps {
   match: any
 }
 
-class HeroDetail extends React.Component<HeroDetailProps> {
+export const HeroDetail: React.FC<HeroDetailProps> = ({
+  match
+}): JSX.Element => {
+  const [hero, setHero] = useState(null)
+  useEffect((): void => {
+    (async (): Promise<void> => {
+      const res = await fetch("https://api.opendota.com/api/heroes")
+      const heroes = await res.json()
+      const target = heroes.find((hero: any) => (
+        hero.localized_name === match.params.name
+      ))
+      setHero(target)
+    })()
+  }, [match])
 
-  state: {
-    hero: any | null
-  } = {
-    hero: null
-  }
-
-  componentDidMount = (): void => {
-    fetch("https://api.opendota.com/api/heroes")
-    .then(res => res.json())
-    .then(heroes => {
-      this.setState({ hero: heroes.find((hero: any) => hero.localized_name === this.props.match.params.name) })
-    })
-  }
-
-  render(): JSX.Element {
-
-    const loadingOption: any = {
-      loop: true,
-      autoplay: true,
-      animationData: loadingData,
-      rendererSettings: {
-        preserveAspectRatio: "xMidYMid slice"
-      }
-    }
-
-    const notfoundOption: any = {
-      loop: true,
-      autoplay: true,
-      animationData: notfound,
-      rendererSettings: {
-        preserveAspectRatio: "xMidYMid slice"
-      }
-    }
-
-    if (this.state.hero === null) {
-      return(
-        <FadeIn>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "99vw", height: "95vh" }}>
-            <Lottie options={loadingOption} height={200} width={200} />
-          </div>
-        </FadeIn>
-      )
-    }
-
-    if (this.state.hero === undefined) {
-      return(
-        <FadeIn>
-          <div style={{ display: "flex", justifyContent: "center", alignItems: "center", width: "99vw", height: "95vh" }}>
-            <Lottie options={notfoundOption} height={400} width={400} />
-          </div>
-        </FadeIn>
-      )
-    }
-
-    const roles: string = this.state.hero.roles.reduce((acc: string, cur: string) => acc + " - " + cur, "")
-    let color: string, attr: string
-    const primaryAttr: string = this.state.hero.primary_attr
-    if (primaryAttr === "str") {
-      color = "#EF4444"
-      attr = "strength"
-    } else if (primaryAttr === "agi") {
-      color = "#10B981"
-      attr = "agility"
-    } else {
-      color = "#3B82F6"
-      attr = "inteligence"
-    }
-
+  if (hero === null) {
     return (
-      <div className="center-container">
-        <h1 className="heading">{this.state.hero.localized_name}</h1>
-        <FadeIn>
-          <div className="hero-image-container">
-            <img
-              alt={this.state.hero.name}
-              src={`https://cdn.dota2.com/apps/dota2/images/heroes/${this.state.hero.name.split("_dota_hero_")[1]}_full.png`}
-              style={{width: "20rem", borderColor: color}}
-            />
-          </div>
-          <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-            <h2 className="border-attr attr" style={{color}}>{attr}</h2>
-          </div>
-          <h3 className="sub-heading">{this.state.hero.attack_type}<span style={{color: "gray"}}>{roles}</span></h3>
-        </FadeIn>
-      </div>
-      
+      <Animation animationData={loading} width={200} height={200} />
     )
   }
-}
 
-export default HeroDetail
+  if (hero === undefined) {
+    return (
+      <Animation animationData={notfound} width={400} height={400} />
+    )
+  }
+
+  const roles: string = hero.roles.reduce((acc: string, cur: string) => acc + " - " + cur, "")
+  let color: string, attr: string
+  const primaryAttr: string = hero.primary_attr
+  if (primaryAttr === "str") {
+    color = "#EF4444"
+    attr = "strength"
+  } else if (primaryAttr === "agi") {
+    color = "#10B981"
+    attr = "agility"
+  } else {
+    color = "#3B82F6"
+    attr = "inteligence"
+  }
+
+  return (
+    <div className="center-container">
+      <h1 className="heading">{hero.localized_name}</h1>
+      <FadeIn>
+        <div className="hero-image-container">
+          <img
+            alt={hero.name}
+            src={`https://cdn.dota2.com/apps/dota2/images/heroes/${hero.name.split("_dota_hero_")[1]}_full.png`}
+            style={{width: "20rem", borderColor: color}}
+          />
+        </div>
+        <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+          <h2 className="border-attr attr" style={{color}}>{attr}</h2>
+        </div>
+        <h3 className="sub-heading">{hero.attack_type}<span style={{color: "gray"}}>{roles}</span></h3>
+      </FadeIn>
+    </div>
+  )
+}
