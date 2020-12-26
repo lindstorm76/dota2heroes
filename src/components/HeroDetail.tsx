@@ -66,7 +66,7 @@ class HeroDetail extends React.Component<HeroDetailProps> {
 
     const roles: string = this.state.hero.roles.reduce((acc: string, cur: string) => acc + " - " + cur, "")
     let color: string, attr: string, src: string
-    const { primaryAttr } = this.state.hero.primary_attr
+    const primaryAttr: string = this.state.hero.primary_attr
     if (primaryAttr === "str") {
       color = "#EF4444"
       attr = "strength"
