@@ -11,6 +11,7 @@ export const App: React.FC = (): JSX.Element => {
   const [attackType, setAttackType] = useState(null)
   const [name, setName] = useState(null)
   const [heroes, setHeroes] = useState(null)
+  const [names, setNames] = useState(null)
 
   useEffect((): void => {
     (async (): Promise<void> => {
@@ -18,6 +19,11 @@ export const App: React.FC = (): JSX.Element => {
       const heroes = await res.json()
       heroes.sort((a: any, b: any) => a.name > b.name ? 1 : -1)
       setHeroes(heroes)
+      setNames(
+        heroes.map((hero: any) => (
+          hero.localized_name
+        )).sort()
+      )
     })()
   }, [])
 
@@ -48,15 +54,30 @@ export const App: React.FC = (): JSX.Element => {
     setName(e.target.value === "HERO NAME" ? null : e.target.value)
   }
 
+  const generateHeroCard = (
+    hero: any, validity: boolean
+  ): JSX.Element => (
+    <HeroCard
+        id={hero.id}
+        key={`hero-${hero.id}`}
+        mouseOver={showDetail}
+        attr={hero.primary_attr}
+        localized_name={hero.localized_name}
+        name={hero.name.split("_dota_hero_")[1]}
+        isValid={validity}
+      />
+  )
+
   if (!heroes) {
     return (
-      <Animation animation={loading} width={200} height={200} />
+      <Animation animationData={loading} width={200} height={200} />
     )
   }
 
   const strCards: Array<JSX.Element> = [],
         agiCards: Array<JSX.Element> = [],
         intCards: Array<JSX.Element> = []
+  
   heroes.forEach((hero: any) => {
     let validRole: boolean = true,
         validType: boolean = true,
@@ -72,47 +93,15 @@ export const App: React.FC = (): JSX.Element => {
     }
     const validity: boolean = validRole && validType && validName
     if (hero.primary_attr === "str") {
-      strCards.push(
-        <HeroCard
-          id={hero.id}
-          key={`hero-${hero.id}`}
-          mouseOver={showDetail}
-          attr={hero.primary_attr}
-          localized_name={hero.localized_name}
-          name={hero.name.split("_dota_hero_")[1]}
-          isValid={validity}
-        />
-      )
+      strCards.push(generateHeroCard(hero, validity))
     } else if (hero.primary_attr === "agi") {
-      agiCards.push(
-        <HeroCard
-          id={hero.id}
-          key={`hero-${hero.id}`}
-          mouseOver={showDetail}
-          attr={hero.primary_attr}
-          localized_name={hero.localized_name}
-          name={hero.name.split("_dota_hero_")[1]}
-          isValid={validity}
-        />
-      )
+      agiCards.push(generateHeroCard(hero, validity))
     } else if (hero.primary_attr === "int") {
-      intCards.push(
-        <HeroCard
-          id={hero.id}
-          key={`hero-${hero.id}`}
-          mouseOver={showDetail}
-          attr={hero.primary_attr}
-          localized_name={hero.localized_name}
-          name={hero.name.split("_dota_hero_")[1]}
-          isValid={validity}
-        />
-      )
+      intCards.push(generateHeroCard(hero, validity))
     }
   })
 
-  const names: Array<JSX.Element> = heroes.map((hero: any) => (
-    hero.localized_name
-  )).sort().map((name: string) => (
+  const nameOptions = names.map((name: string) => (
     <option key={"hero-" + name}>{name}</option>
   ))
 
@@ -125,7 +114,7 @@ export const App: React.FC = (): JSX.Element => {
         filterRole={filterRole}
         filterAttackType={filterAttackType}
         filterName={filterName}
-        names={names}
+        names={nameOptions}
       />
       <FadeIn>
         <div className="container">

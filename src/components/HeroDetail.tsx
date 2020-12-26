@@ -25,13 +25,13 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
 
   if (hero === null) {
     return (
-      <Animation animation={loading} width={200} height={200} />
+      <Animation animationData={loading} width={200} height={200} />
     )
   }
 
   if (hero === undefined) {
     return (
-      <Animation animation={notfound} width={500} height={500} />
+      <Animation animationData={notfound} width={500} height={500} />
     )
   }
 
