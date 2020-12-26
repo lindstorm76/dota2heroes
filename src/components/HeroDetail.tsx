@@ -65,20 +65,17 @@ class HeroDetail extends React.Component<HeroDetailProps> {
     }
 
     const roles: string = this.state.hero.roles.reduce((acc: string, cur: string) => acc + " - " + cur, "")
-    let color: string, attr: string, src: string
+    let color: string, attr: string
     const primaryAttr: string = this.state.hero.primary_attr
     if (primaryAttr === "str") {
       color = "#EF4444"
       attr = "strength"
-      src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/7/7a/Strength_attribute_symbol.png"
     } else if (primaryAttr === "agi") {
       color = "#10B981"
       attr = "agility"
-      src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/2/2d/Agility_attribute_symbol.png"
     } else {
       color = "#3B82F6"
       attr = "inteligence"
-      src = "https://static.wikia.nocookie.net/dota2_gamepedia/images/5/56/Intelligence_attribute_symbol.png"
     }
 
     return (
@@ -89,12 +86,11 @@ class HeroDetail extends React.Component<HeroDetailProps> {
             <img
               alt={this.state.hero.name}
               src={`https://cdn.dota2.com/apps/dota2/images/heroes/${this.state.hero.name.split("_dota_hero_")[1]}_full.png`}
-              style={{width: "20rem"}}
+              style={{width: "20rem", borderColor: color}}
             />
           </div>
           <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-          <img alt={this.state.hero.primary_attr} className="hero-attribute" src={src} />
-          <h2 className="attr" style={{color}}>{attr}</h2>
+            <h2 className="border-attr attr" style={{color}}>{attr}</h2>
           </div>
           <h3 className="sub-heading">{this.state.hero.attack_type}<span style={{color: "gray"}}>{roles}</span></h3>
         </FadeIn>
