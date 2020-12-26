@@ -68,7 +68,7 @@ export const App: React.FC = (): JSX.Element => {
       />
   )
 
-  if (!heroes) {
+  if (heroes === null || names === null) {
     return (
       <Animation animationData={loading} width={200} height={200} />
     )
@@ -77,7 +77,6 @@ export const App: React.FC = (): JSX.Element => {
   const strCards: Array<JSX.Element> = [],
         agiCards: Array<JSX.Element> = [],
         intCards: Array<JSX.Element> = []
-  
   heroes.forEach((hero: any) => {
     let validRole: boolean = true,
         validType: boolean = true,
