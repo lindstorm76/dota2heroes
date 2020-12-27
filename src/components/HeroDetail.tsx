@@ -16,10 +16,9 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
     (async (): Promise<void> => {
       const res = await fetch("https://api.opendota.com/api/heroes")
       const heroes = await res.json()
-      const target = heroes.find((hero: any) => (
+      setHero(heroes.find((hero: any) => (
         hero.localized_name === match.params.name
-      ))
-      setHero(target)
+      )))
     })()
   }, [match])
 
@@ -27,9 +26,7 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
     return (
       <Animation animationData={loading} width={200} height={200} />
     )
-  }
-
-  if (hero === undefined) {
+  } else if (hero === undefined) {
     return (
       <Animation animationData={notfound} width={400} height={400} />
     )

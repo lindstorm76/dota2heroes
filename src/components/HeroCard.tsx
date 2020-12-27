@@ -1,4 +1,5 @@
-import React, { MouseEvent } from 'react'
+import React, { MouseEvent, useState } from 'react'
+import { useHistory } from "react-router-dom"
 
 type HeroCardProps = {
   id: string,
@@ -12,15 +13,23 @@ type HeroCardProps = {
 export const HeroCard: React.FC<HeroCardProps> = ({
   id, mouseOver, attr, localized_name, name, isValid
 }): JSX.Element => {
-  const handleRedirect = (): void => {
-    window.location.href = `/${localized_name}`
+  
+  const [redirect, setRedirect] = useState(null)
+  const history = useHistory()
+
+  const handleClick = (): void => {
+    setRedirect(`/${localized_name}`)
+  }
+
+  if (redirect !== null) {
+    history.push(redirect)
   }
 
   return (
     <div className="hero-card">
       <img
         key={`hero-${id}`}
-        onClick={handleRedirect}
+        onClick={handleClick}
         onMouseOver={isValid ? mouseOver : () => {}}
         className={`${isValid ? "hover" : ""} ${isValid ? attr : ""}`}
         data-id={id}   
