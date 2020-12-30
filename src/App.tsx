@@ -81,15 +81,9 @@ export const App: React.FC = (): JSX.Element => {
     let validRole: boolean = true,
         validType: boolean = true,
         validName: boolean = true
-    if (role !== null) {
-      validRole = hero.roles.includes(role)
-    }
-    if (attackType !== null) {
-      validType = hero.attack_type === attackType
-    }
-    if (name !== null) {
-      validName = hero.localized_name === name
-    }
+    validRole = role === null ? true : hero.roles.includes(role)
+    validType = attackType === null ? true : hero.attack_type === attackType
+    validName = name === null ? true : hero.localized_name === name
     const validity: boolean = validRole && validType && validName
     if (hero.primary_attr === "str") {
       strCards.push(generateHeroCard(hero, validity))
@@ -100,7 +94,7 @@ export const App: React.FC = (): JSX.Element => {
     }
   })
 
-  const nameOptions = names.map((name: string) => (
+  const nameOptions: Array<JSX.Element> = names.map((name: string) => (
     <option key={"hero-" + name}>{name}</option>
   ))
 
