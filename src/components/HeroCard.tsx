@@ -13,7 +13,7 @@ type HeroCardProps = {
 export const HeroCard: React.FC<HeroCardProps> = ({
   id, mouseOver, attr, localized_name, name, isValid
 }): JSX.Element => {
-  
+
   const [redirect, setRedirect] = useState(null)
   const history = useHistory()
 
@@ -25,16 +25,20 @@ export const HeroCard: React.FC<HeroCardProps> = ({
     history.push(redirect)
   }
 
+  const derivedClass = `${isValid ? "hover" : ""} ${isValid ? attr : ""}`
+  const derivedOpacity = isValid ? 1 : .3
+  const derivedMouseOver = isValid ? mouseOver  : (): void => {}
+
   return (
     <div className="hero-card">
       <img
         key={`hero-${id}`}
         onClick={handleClick}
-        onMouseOver={isValid ? mouseOver : () => {}}
-        className={`${isValid ? "hover" : ""} ${isValid ? attr : ""}`}
-        data-id={id}   
+        onMouseOver={derivedMouseOver}
+        className={derivedClass}
+        data-id={id}
         src={`https://cdn.dota2.com/apps/dota2/images/heroes/${name}_full.png`}
-        style={{opacity: isValid ? 1 : .3}}
+        style={{opacity: derivedOpacity}}
         alt={name}
       />
     </div>

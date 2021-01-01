@@ -12,6 +12,7 @@ export const App: React.FC = (): JSX.Element => {
   const [name, setName] = useState(null)
   const [heroes, setHeroes] = useState(null)
   const [names, setNames] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
 
   useEffect((): void => {
     (async (): Promise<void> => {
@@ -24,6 +25,15 @@ export const App: React.FC = (): JSX.Element => {
           hero.localized_name
         )).sort()
       )
+      setIsLoading(false)
+      // Get prev filter conditions if any
+      if (localStorage.getItem("filterConditions") !== null) {
+        const { role, attackType, name } = JSON.parse(localStorage.getItem("filterConditions"))
+        console.log(localStorage.getItem("filterConditions"))
+        setRole(role)
+        setAttackType(attackType)
+        setName(name)
+      }
     })()
   }, [])
 
@@ -54,6 +64,12 @@ export const App: React.FC = (): JSX.Element => {
     setName(e.target.value === "HERO NAME" ? null : e.target.value)
   }
 
+  if (role !== null || attackType !== null || name !== null) {
+    localStorage.setItem("filterConditions", JSON.stringify({
+      role: role, attackType: attackType, name: name
+    }))
+  }
+
   const generateHeroCard = (
     hero: any, validity: boolean
   ): JSX.Element => (
@@ -68,7 +84,7 @@ export const App: React.FC = (): JSX.Element => {
       />
   )
 
-  if (heroes === null || names === null) {
+  if (isLoading) {
     return (
       <Animation animationData={loading} width={200} height={200} />
     )
@@ -108,6 +124,8 @@ export const App: React.FC = (): JSX.Element => {
         filterAttackType={filterAttackType}
         filterName={filterName}
         names={nameOptions}
+        currentRole={role || ""}
+        currentAttackType={attackType || ""}
       />
       <FadeIn>
         <div className="container">

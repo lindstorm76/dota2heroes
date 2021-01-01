@@ -4,38 +4,51 @@ type FilterOptionProps = {
   filterRole: (e: ChangeEvent<HTMLSelectElement>) => void,
   filterAttackType: (e: ChangeEvent<HTMLSelectElement>) => void,
   filterName: (e: ChangeEvent<HTMLSelectElement>) => void,
-  names: Array<JSX.Element>
+  names: Array<JSX.Element>,
+  currentRole: string,
+  currentAttackType: string
 }
 
 // If you have a type applied you can extract properties from the props.
 export const FilterOption: React.FC<FilterOptionProps> = ({
-  filterRole, filterAttackType, filterName, names
-}): JSX.Element => (
-  <div className="filter">
-    <p>FILTER</p>
-    <select id="role" onChange={filterRole}>
-      <option>BY ROLE</option>
-      <option>ALL</option>
-      <option>CARRY</option>
-      <option>DISABLER</option>
-      <option>LANE SUPPORT</option>
-      <option>INITIATOR</option>
-      <option>JUNGLER</option>
-      <option>SUPPORT</option>
-      <option>DURABLE</option>
-      <option>NUKER</option>
-      <option>PUSHER</option>
-      <option>ESCAPE</option>
-    </select>
-    <select id="atk_type" onChange={filterAttackType}>
-      <option>BY ATTACK TYPE</option>
-      <option>ALL</option>
-      <option>MELEE</option>
-      <option>RANGED</option>
-    </select>
-    <select id="name" onChange={filterName}>
-      <option>HERO NAME</option>
-      {names}
-    </select>
-  </div>
-)
+  filterRole, filterAttackType, filterName, names, currentRole, currentAttackType
+}): JSX.Element => {
+
+  const roles: Array<string> = [
+          "BY ROLE", "ALL", "CARRY", "DISABLER", "LANE SUPPORT", "INITIATOR", "JUNGLER",
+          "SUPPORT", "DURABLE", "NUKER", "PUSHER", "ESCAPE"
+        ],
+        attackTypes: Array<string> = [
+          "BY ATTACK TYPE",
+          "ALL",
+          "MELEE",
+          "RANGED"
+        ]
+
+  const generateOptions = (elems: Array<string>, selected: string): Array<JSX.Element> => {
+    return elems.map((elem: string) => {
+      if (elem.toLowerCase() === selected.toLowerCase())
+        return <option key={elem} selected>{elem}</option>
+      return <option key={elem}>{elem}</option>
+    })
+  }
+
+  const roleOptions = generateOptions(roles, currentRole)
+  const attackTypeOptions = generateOptions(attackTypes, currentAttackType)
+
+  return (
+    <div className="filter">
+      <p>FILTER</p>
+      <select id="role" onChange={filterRole}>
+        {roleOptions}
+      </select>
+      <select id="atk_type" onChange={filterAttackType}>
+        {attackTypeOptions}
+      </select>
+      <select id="name" onChange={filterName}>
+        <option>HERO NAME</option>
+        {names}
+      </select>
+    </div>
+  )
+}

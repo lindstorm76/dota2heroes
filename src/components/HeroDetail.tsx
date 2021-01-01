@@ -12,6 +12,8 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
   match
 }): JSX.Element => {
   const [hero, setHero] = useState(null)
+  const [isLoading, setIsLoading] = useState(true)
+
   useEffect((): void => {
     (async (): Promise<void> => {
       const res = await fetch("https://api.opendota.com/api/heroes")
@@ -19,10 +21,11 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
       setHero(heroes.find((hero: any) => (
         hero.localized_name === match.params.name
       )))
+      setIsLoading(false)
     })()
   }, [match])
 
-  if (hero === null) {
+  if (isLoading) {
     return (
       <Animation animationData={loading} width={200} height={200} />
     )
