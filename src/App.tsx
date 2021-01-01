@@ -109,12 +109,6 @@ export const App: React.FC = (): JSX.Element => {
     }
   })
 
-  const nameOptions: Array<JSX.Element> = names.map((each: string) => {
-    if (name !== null && each === name)
-      return <option key={"hero-" + each} selected>{each}</option>
-    return <option key={"hero-" + each}>{each}</option>
-  })
-
   return (
     <div className="center-container">
       <div className="heading-container">
@@ -124,9 +118,10 @@ export const App: React.FC = (): JSX.Element => {
         filterRole={filterRole}
         filterAttackType={filterAttackType}
         filterName={filterName}
-        names={nameOptions}
+        names={names}
         currentRole={role || ""}
         currentAttackType={attackType || ""}
+        currentName={name || ""}
       />
       <FadeIn>
         <div className="container">
