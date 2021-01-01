@@ -29,7 +29,6 @@ export const App: React.FC = (): JSX.Element => {
       // Get prev filter conditions if any
       if (localStorage.getItem("filterConditions") !== null) {
         const { role, attackType, name } = JSON.parse(localStorage.getItem("filterConditions"))
-        console.log(localStorage.getItem("filterConditions"))
         setRole(role)
         setAttackType(attackType)
         setName(name)
