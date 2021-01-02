@@ -13,23 +13,26 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
 }): JSX.Element => {
   const [hero, setHero] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [notFound, setNotFound] = useState(false)
 
   useEffect((): void => {
     (async (): Promise<void> => {
       const res = await fetch("https://api.opendota.com/api/heroes")
       const heroes = await res.json()
-      setHero(heroes.find((hero: any) => (
-        hero.localized_name === match.params.name
-      )))
+      const target = heroes.find((hero: any) => hero.localized_name === match.params.name)
+      if (target === undefined) setNotFound(true)
+      setHero(target)
       setIsLoading(false)
     })()
-  }, [match])
+  }, [match]) // Pass anything you need to use in useEffect in this array.
 
   if (isLoading) {
     return (
       <Animation animationData={loading} width={200} height={200} />
     )
-  } else if (hero === undefined) {
+  }
+  
+  if (notFound) {
     return (
       <Animation animationData={notfound} width={400} height={400} />
     )
