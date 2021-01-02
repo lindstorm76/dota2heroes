@@ -1,4 +1,4 @@
-import React, { MouseEvent, useState } from 'react'
+import React, { MouseEvent } from 'react'
 import { useHistory } from "react-router-dom"
 
 type HeroCardProps = {
@@ -14,15 +14,10 @@ export const HeroCard: React.FC<HeroCardProps> = ({
   id, mouseOver, attr, localized_name, name, isValid
 }): JSX.Element => {
 
-  const [redirect, setRedirect] = useState(null)
   const history = useHistory()
 
   const handleClick = (): void => {
-    setRedirect(`/${localized_name}`)
-  }
-
-  if (redirect !== null) {
-    history.push(redirect)
+    history.push(`/${localized_name}`)
   }
 
   const derivedClass = `${isValid ? "hover" : ""} ${isValid ? attr : ""}`
