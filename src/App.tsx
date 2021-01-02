@@ -63,6 +63,14 @@ export const App: React.FC = (): JSX.Element => {
     setName(e.target.value === "HERO NAME" ? null : e.target.value)
   }
 
+  const clearFilter = (): void => {
+    setRole(null)
+    setAttackType(null)
+    setName(null)
+    if (localStorage.getItem("filterConditions") !== null)
+      localStorage.removeItem("filterConditions")
+  }
+
   if (role !== null || attackType !== null || name !== null) {
     localStorage.setItem("filterConditions", JSON.stringify({
       role: role, attackType: attackType, name: name
@@ -124,6 +132,7 @@ export const App: React.FC = (): JSX.Element => {
         filterRole={filterRole}
         filterAttackType={filterAttackType}
         filterName={filterName}
+        clearFilter={clearFilter}
         names={nameOptions}
         currentRole={role || ""}
         currentAttackType={attackType || ""}

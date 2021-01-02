@@ -106,13 +106,23 @@ body::-webkit-scrollbar-thumb {
   width: fit-content;
 }
 
-.filter select {
+.filter select, .filter button {
   height: 2rem;
   background-color: #414141;
   color: white;
   margin-left: 1rem;
   outline: none;
   padding: 0 .25rem;
+}
+
+.filter button {
+  padding: .5rem 1rem;
+  border: .1rem solid silver;
+  cursor: pointer;
+}
+
+.filter button:active {
+  transform: scale(.95);
 }
 
 option, select {
@@ -126,9 +136,13 @@ option, select {
     width: 100%;
   }
   
-  .filter select {
+  .filter select, .filter button {
     margin: 0 0 .5rem 0;
     width: 100%;
+  }
+
+  .filter button:active {
+    transform: scale(1);
   }
 
   .hero-container {

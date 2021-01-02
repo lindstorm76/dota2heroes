@@ -4,6 +4,7 @@ type FilterOptionProps = {
   filterRole: (e: ChangeEvent<HTMLSelectElement>) => void,
   filterAttackType: (e: ChangeEvent<HTMLSelectElement>) => void,
   filterName: (e: ChangeEvent<HTMLSelectElement>) => void,
+  clearFilter: () => void,
   names: Array<JSX.Element>,
   currentRole: string,
   currentAttackType: string
@@ -11,7 +12,7 @@ type FilterOptionProps = {
 
 // If you have a type applied you can extract properties from the props.
 export const FilterOption: React.FC<FilterOptionProps> = ({
-  filterRole, filterAttackType, filterName, names, currentRole, currentAttackType
+  filterRole, filterAttackType, filterName, clearFilter, names, currentRole, currentAttackType
 }): JSX.Element => {
 
   const roles: Array<string> = [
@@ -49,6 +50,7 @@ export const FilterOption: React.FC<FilterOptionProps> = ({
         <option>HERO NAME</option>
         {names}
       </select>
+      <button onClick={clearFilter}>CLEAR</button>
     </div>
   )
 }
