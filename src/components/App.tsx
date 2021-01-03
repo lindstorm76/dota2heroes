@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useEffect, useState } from "react"
-import { HeroCard } from "./components/HeroCard"
-import loading from "./loading.json"
+import { HeroCard } from "./HeroCard"
+import loading from "../loading.json"
 import FadeIn from "react-fade-in"
-import { FilterOption } from "./components/FilterOption"
-import { Animation } from "./components/Animation"
+import { FilterOption } from "./FilterOption"
+import { Animation } from "./Animation"
 
 export const App: React.FC = (): JSX.Element => {
   const [heading, setHeading] = useState("Dota 2 Heroes")
@@ -117,12 +117,6 @@ export const App: React.FC = (): JSX.Element => {
     }
   })
 
-  const nameOptions: Array<JSX.Element> = names.map((each: string) => {
-    if (name !== null && each === name)
-      return <option key={"hero-" + each} selected>{each}</option>
-    return <option key={"hero-" + each}>{each}</option>
-  })
-
   return (
     <div className="center-container">
       <div className="heading-container">
@@ -133,9 +127,10 @@ export const App: React.FC = (): JSX.Element => {
         filterAttackType={filterAttackType}
         filterName={filterName}
         clearFilter={clearFilter}
-        names={nameOptions}
+        names={names}
         currentRole={role || ""}
         currentAttackType={attackType || ""}
+        currentName={name || ""}
       />
       <FadeIn>
         <div className="container">
