@@ -49,21 +49,22 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
   }
 
   return (
-    <div className="center-container">
-      <h1 className="heading">{hero.localized_name}</h1>
-      <FadeIn>
-        <div className="hero-image-container">
-          <img
-            alt={hero.name}
-            src={`https://cdn.dota2.com/apps/dota2/images/heroes/${hero.name.split("_dota_hero_")[1]}_full.png`}
-            style={{width: "20rem", borderColor: color}}
-          />
-        </div>
-        <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
-          <h2 className="border-attr attr" style={{color}}>{attr}</h2>
-        </div>
-        <h3 className="sub-heading">{hero.attack_type}<span style={{color: "gray"}}>{roles}</span></h3>
-      </FadeIn>
-    </div>
+    
+    <FadeIn>
+      <div className="center-container">
+        <h1 className="heading">{hero.localized_name}</h1>
+          <div className="hero-image-container">
+            <img
+              alt={hero.name}
+              src={`https://cdn.dota2.com/apps/dota2/images/heroes/${hero.name.split("_dota_hero_")[1]}_full.png`}
+              style={{width: "20rem", borderColor: color}}
+            />
+          </div>
+          <div style={{display: "flex", alignItems: "center", justifyContent: "center"}}>
+            <h2 className="border-attr attr" style={{color}}>{attr}</h2>
+          </div>
+          <h3 className="sub-heading">{hero.attack_type}<span style={{color: "gray"}}>{roles}</span></h3>
+      </div>
+    </FadeIn>
   )
 }
