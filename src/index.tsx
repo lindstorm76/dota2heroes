@@ -14,7 +14,7 @@ ReactDOM.render(
     <Switch>
       <Route exact path="/" component={App} />
       <Route exact path="/:name" component={HeroDetail} />
-      <Route path="*" component={NotFound} />
+      <Route path="/notfound" component={NotFound} />
     </Switch>
   </Router>,
   document.getElementById('root') as HTMLDivElement
