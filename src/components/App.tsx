@@ -1,9 +1,9 @@
 import React, { ChangeEvent, useEffect, useState } from "react"
-import { HeroCard } from "./components/HeroCard"
-import loading from "./loading.json"
+import { HeroCard } from "./HeroCard"
+import loading from "../loading.json"
 import FadeIn from "react-fade-in"
-import { FilterOption } from "./components/FilterOption"
-import { Animation } from "./components/Animation"
+import { FilterOption } from "./FilterOption"
+import { Animation } from "./Animation"
 
 export const App: React.FC = (): JSX.Element => {
   const [heading, setHeading] = useState("Dota 2 Heroes")

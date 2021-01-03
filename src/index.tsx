@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom'
-import { App } from './App'
+import { App } from './components/App'
 import { HeroDetail } from "./components/HeroDetail"
 import { NotFound } from "./components/NotFound"
 import "./style.css"
@@ -14,7 +14,7 @@ ReactDOM.render(
     <Switch>
       <Route exact path="/" component={App} />
       <Route exact path="/:name" component={HeroDetail} />
-      <Route path="/notfound" component={NotFound} />
+      <Route path="*" component={NotFound} />
     </Switch>
   </Router>,
   document.getElementById('root') as HTMLDivElement

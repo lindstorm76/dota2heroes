@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react"
 import FadeIn from "react-fade-in"
 import loading from "../loading.json"
-import notfound from "../notfound.json"
 import { Animation } from "./Animation"
+import { NotFound } from "./NotFound"
 
 interface HeroDetailProps {
   match: any
@@ -32,11 +32,7 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
     )
   }
   
-  if (notFound) {
-    return (
-      <Animation animationData={notfound} width={400} height={400} />
-    )
-  }
+  if (notFound) return <NotFound />
 
   const roles: string = hero.roles.reduce((acc: string, cur: string) => acc + " - " + cur, "")
   let color: string, attr: string
