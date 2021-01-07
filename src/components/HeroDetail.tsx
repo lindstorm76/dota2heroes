@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
 import FadeIn from "react-fade-in"
-import loading from "../loading.json"
+import loading from "../assets/loading.json"
 import { Animation } from "./Animation"
 import { NotFound } from "./NotFound"
 
