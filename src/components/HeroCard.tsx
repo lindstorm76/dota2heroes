@@ -16,7 +16,7 @@ type HeroCardProps = {
 export const HeroCard: React.FC<HeroCardProps> = ({
   id, mouseOver, attr, localized_name, name, isValid
 }): JSX.Element => {
-  const derivedClass = `${isValid ? "hover" : ""} ${isValid ? attr : ""}`
+  const derivedClass = `${isValid && "hover"} ${isValid && attr}`
   const derivedOpacity = isValid ? 1 : .3
   const derivedMouseOver = isValid ? mouseOver  : (): void => {}
   return (
