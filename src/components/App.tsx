@@ -1,17 +1,17 @@
-import React, { ChangeEvent, useEffect, useState } from "react"
+import React, { ChangeEvent, useEffect, useRef, useState } from "react"
 import { HeroCard } from "./HeroCard"
-import loading from "../loading.json"
+import loading from "../assets/loading.json"
 import FadeIn from "react-fade-in"
 import { FilterOption } from "./FilterOption"
 import { Animation } from "./Animation"
 
 export const App: React.FC = (): JSX.Element => {
-  const [heading, setHeading] = useState("Dota 2 Heroes")
+  const headingRef = useRef(null)
   const [role, setRole] = useState(null)
   const [attackType, setAttackType] = useState(null)
   const [name, setName] = useState(null)
   const [heroes, setHeroes] = useState(null)
-  const [names, setNames] = useState(null)
+  const [heroNames, setNames] = useState(null)
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect((): void => {
@@ -40,7 +40,7 @@ export const App: React.FC = (): JSX.Element => {
     const hoveredHeroName: string = heroes.find((hero: any) => (
       hero.id === +e.target.dataset.id
     )).localized_name
-    setHeading(hoveredHeroName)
+    headingRef.current.textContent = hoveredHeroName
   }
 
   const capitalize = (word: string): string => (
@@ -117,17 +117,21 @@ export const App: React.FC = (): JSX.Element => {
     }
   })
 
+  // Whenever we hover on any hero card the heading state changes
+  // then this component is re-rendered, causing all coponents to
+  // re-render even though there's nothing change in that componenet
+  // which is NOT good at all.
   return (
     <div className="center-container">
       <div className="heading-container">
-        <h1 className="heading">{heading}</h1>
+        <h1 className="heading" ref={headingRef}>Dota 2 Heroes</h1>
       </div>
       <FilterOption
         filterRole={filterRole}
         filterAttackType={filterAttackType}
         filterName={filterName}
         clearFilter={clearFilter}
-        names={names}
+        heroNames={heroNames}
         currentRole={role || ""}
         currentAttackType={attackType || ""}
         currentName={name || ""}
