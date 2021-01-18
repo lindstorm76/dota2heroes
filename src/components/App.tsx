@@ -73,7 +73,7 @@ export const App: React.FC = (): JSX.Element => {
 
   if (role !== null || attackType !== null || name !== null) {
     localStorage.setItem("filterConditions", JSON.stringify({
-      role: role, attackType: attackType, name: name
+      role, attackType, name
     }))
   }
 
