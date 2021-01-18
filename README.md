@@ -18,7 +18,7 @@ This project was developed primarily on **React.js** (with Vanilla JS), **CSS5**
 
 🐱‍🚀 You can filter heroes using their roles, attack types or names. Any hero that does not match the filter condition will be dimmed and you can no longer hover over them.
 
-🐱‍💻 You can combine multiple filter conditions together for example **Carry** + **Ranged** + **Drow Ranger**
+🐱‍💻 You can combine multiple filter conditions together for example **Carry** + **Malee**
 
  ![FilteringHeroes](https://github.com/lindstorm75/dota2heroes/blob/master/images/FilteringHeroes.PNG?raw=true)
 
