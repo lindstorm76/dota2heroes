@@ -1,9 +1,12 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react"
-import { HeroCard } from "./HeroCard"
 import loading from "../assets/loading.json"
 import FadeIn from "react-fade-in"
-import { FilterOption } from "./FilterOption"
-import { Animation } from "./Animation"
+import {
+  HeroCard,
+  FilterOption,
+  Animation,
+  HeroContainer
+} from "./"
 
 export const App: React.FC = (): JSX.Element => {
   const headingRef = useRef(null)
@@ -81,14 +84,14 @@ export const App: React.FC = (): JSX.Element => {
     hero: any, validity: boolean
   ): JSX.Element => (
     <HeroCard
-        id={hero.id}
-        key={`hero-${hero.id}`}
-        mouseOver={showDetail}
-        attr={hero.primary_attr}
-        localized_name={hero.localized_name}
-        name={hero.name.split("_dota_hero_")[1]}
-        isValid={validity}
-      />
+      id={hero.id}
+      key={`hero-${hero.id}`}
+      mouseOver={showDetail}
+      attr={hero.primary_attr}
+      localized_name={hero.localized_name}
+      name={hero.name.split("_dota_hero_")[1]}
+      isValid={validity}
+    />
   )
 
   if (isLoading) {
@@ -138,18 +141,9 @@ export const App: React.FC = (): JSX.Element => {
       />
       <FadeIn>
         <div className="container">
-          <h2 className="attr" style={{color: "#EF4444"}}>strength</h2>
-          <div className="hero-container">
-            {strCards}
-          </div>
-          <h2 className="attr" style={{color: "#10B981"}}>agility</h2>
-          <div className="hero-container">
-            {agiCards}
-          </div>
-          <h2 className="attr" style={{color: "#3B82F6"}}>intelligence</h2>
-          <div className="hero-container">
-            {intCards}
-          </div>
+          <HeroContainer color="#EF4444" attr="strength" heroes={strCards} />
+          <HeroContainer color="#10B981" attr="agility" heroes={agiCards} />
+          <HeroContainer color="#3B82F6" attr="intelligence" heroes={intCards} />
         </div>
       </FadeIn>
     </div>

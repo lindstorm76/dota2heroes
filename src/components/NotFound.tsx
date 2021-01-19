@@ -1,6 +1,6 @@
 import React from "react"
 import notfound from "../assets/notfound.json"
-import { Animation } from "./Animation"
+import { Animation } from "./"
 
 export const NotFound: React.FC = (): JSX.Element => {
   return(

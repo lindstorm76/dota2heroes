@@ -1,7 +1,9 @@
 import ReactDOM from 'react-dom'
-import { App } from './components/App'
-import { HeroDetail } from "./components/HeroDetail"
-import { NotFound } from "./components/NotFound"
+import {
+  App,
+  HeroDetail,
+  NotFound
+} from "./components"
 import "./style.css"
 import {
   BrowserRouter as Router,
