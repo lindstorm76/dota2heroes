@@ -28,7 +28,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
           src={`https://cdn.dota2.com/apps/dota2/images/heroes/${name}_full.png`}
           style={{opacity: isValid ? 1 : .3}}
           alt={name}
-        />  
+        />          
       </div>
     </Link>
   )

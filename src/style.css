@@ -16,8 +16,12 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background-color: #892cdc;
+  background-color: #8B5CF6;
   border-radius: 20px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background-color: #7C3AED;
 }
 
 .hero-card {
@@ -33,6 +37,17 @@ body::-webkit-scrollbar-thumb {
   height: 100%;
   object-fit: cover;
   transition: .3s;
+}
+
+.hero-card img:before {
+  content: " ";
+  width: 6rem;
+  height: 100%;
+  position: absolute;
+  display: block;
+  object-fit: cover;
+  transition: .3s;
+  background: url("https://i.kym-cdn.com/photos/images/newsfeed/000/925/494/218.png_large");
 }
 
 .hero-card img.hover:hover {
