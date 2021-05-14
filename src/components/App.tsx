@@ -8,6 +8,19 @@ import {
   HeroContainer
 } from "./"
 import useAxios from "axios-hooks"
+import { atom, selector, useRecoilState } from "recoil"
+
+export const heroNamesState = atom({
+  key: "heroNames",
+  default: [] as any[]
+})
+
+export const heroNamesValue = selector({
+  key: "heroNamesValue",
+  get: ({ get }) => ({
+    all: get(heroNamesState),
+  }),
+});
 
 export const App: React.FC = (): JSX.Element => {
   const headingRef = useRef(null)
@@ -15,7 +28,7 @@ export const App: React.FC = (): JSX.Element => {
   const [attackType, setAttackType] = useState(null)
   const [name, setName] = useState(null)
   const [heroes, setHeroes] = useState(null)
-  const [heroNames, setNames] = useState(null)
+  const [heroNames, setNames] = useRecoilState(heroNamesState);
 
   const [{ data, loading, error }, refetch] = useAxios(
     "https://api.opendota.com/api/heroes"
@@ -25,7 +38,7 @@ export const App: React.FC = (): JSX.Element => {
     <Animation animationData={loadingAnimation} width={200} height={200} />
   )
 
-  if (heroes === null && heroNames === null) {
+  if (heroes === null) {
     setHeroes(data.sort((a: any, b: any) => a.name > b.name ? 1 : -1))
     setNames(
       data.map((hero: any) => (
@@ -131,7 +144,6 @@ export const App: React.FC = (): JSX.Element => {
         filterAttackType={filterAttackType}
         filterName={filterName}
         clearFilter={clearFilter}
-        heroNames={heroNames}
         currentRole={role || ""}
         currentAttackType={attackType || ""}
         currentName={name || ""}

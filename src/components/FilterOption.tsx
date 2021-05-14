@@ -1,11 +1,12 @@
 import React, { ChangeEvent } from "react"
+import { useRecoilValue } from "recoil"
+import { heroNamesValue } from "./App"
 
 type FilterOptionProps = {
   filterRole: (e: ChangeEvent<HTMLSelectElement>) => void,
   filterAttackType: (e: ChangeEvent<HTMLSelectElement>) => void,
   filterName: (e: ChangeEvent<HTMLSelectElement>) => void,
   clearFilter: () => void,
-  heroNames: Array<string>,
   currentRole: string,
   currentAttackType: string,
   currentName: string,
@@ -13,9 +14,9 @@ type FilterOptionProps = {
 
 // If you have a type applied you can extract properties from the props.
 export const FilterOption: React.FC<FilterOptionProps> = ({
-  filterRole, filterAttackType, filterName, clearFilter, heroNames, currentRole, currentAttackType, currentName
+  filterRole, filterAttackType, filterName, clearFilter, currentRole, currentAttackType, currentName
 }): JSX.Element => {
-
+  const heroNames = useRecoilValue(heroNamesValue)
   const roles: Array<string> = [
           "BY ROLE", "ALL", "CARRY", "DISABLER", "LANE SUPPORT", "INITIATOR", "JUNGLER",
           "SUPPORT", "DURABLE", "NUKER", "PUSHER", "ESCAPE"
@@ -27,7 +28,7 @@ export const FilterOption: React.FC<FilterOptionProps> = ({
           "RANGED"
         ]
 
-  const generateOptions = (elems: Array<string>): Array<JSX.Element> => (
+  const generateOptions = (elems: Array<any>): Array<JSX.Element> => (
     elems.map((elem: string) =>
       <option key={elem} value={elem.toLowerCase()}>{elem}</option>
     )
@@ -35,7 +36,7 @@ export const FilterOption: React.FC<FilterOptionProps> = ({
     
   const roleOptions = generateOptions(roles)
   const attackTypeOptions = generateOptions(attackTypes)
-  const nameOptions = generateOptions(heroNames)
+  const nameOptions = generateOptions(heroNames.all)
   return (
     <div className="filter">
       <p>FILTER</p>
