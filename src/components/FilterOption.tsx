@@ -27,27 +27,25 @@ export const FilterOption: React.FC<FilterOptionProps> = ({
           "RANGED"
         ]
 
-  const generateOptions = (elems: Array<string>, selected: string): Array<JSX.Element> => {
-    return elems.map((elem: string) => {
-      if (elem.toLowerCase() === selected.toLowerCase())
-        return <option key={elem} selected>{elem}</option>
-      return <option key={elem}>{elem}</option>
-    })
-  }
-
-  const roleOptions = generateOptions(roles, currentRole)
-  const attackTypeOptions = generateOptions(attackTypes, currentAttackType)
-  const nameOptions = generateOptions(heroNames, currentName) 
+  const generateOptions = (elems: Array<string>): Array<JSX.Element> => (
+    elems.map((elem: string) =>
+      <option key={elem} value={elem.toLowerCase()}>{elem}</option>
+    )
+  )
+    
+  const roleOptions = generateOptions(roles)
+  const attackTypeOptions = generateOptions(attackTypes)
+  const nameOptions = generateOptions(heroNames)
   return (
     <div className="filter">
       <p>FILTER</p>
-      <select id="role" onChange={filterRole}>
+      <select id="role" value={currentRole.toLowerCase()} onChange={filterRole}>
         {roleOptions}
       </select>
-      <select id="atk_type" onChange={filterAttackType}>
+      <select id="atk_type" value={currentAttackType.toLowerCase()} onChange={filterAttackType}>
         {attackTypeOptions}
       </select>
-      <select id="name" onChange={filterName}>
+      <select id="name" value={currentName.toLowerCase()} onChange={filterName}>
         <option>HERO NAME</option>
         {nameOptions}
       </select>

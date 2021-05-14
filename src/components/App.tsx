@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useRef, useState } from "react"
-import loading from "../assets/loading.json"
+import loadingAnimation from "../assets/loading.json"
 import FadeIn from "react-fade-in"
 import {
   HeroCard,
@@ -7,6 +7,7 @@ import {
   Animation,
   HeroContainer
 } from "./"
+import useAxios from "axios-hooks"
 
 export const App: React.FC = (): JSX.Element => {
   const headingRef = useRef(null)
@@ -15,29 +16,29 @@ export const App: React.FC = (): JSX.Element => {
   const [name, setName] = useState(null)
   const [heroes, setHeroes] = useState(null)
   const [heroNames, setNames] = useState(null)
-  const [isLoading, setIsLoading] = useState(true)
 
-  useEffect((): void => {
-    (async (): Promise<void> => {
-      const res = await fetch("https://api.opendota.com/api/heroes")
-      const heroes = await res.json()
-      heroes.sort((a: any, b: any) => a.name > b.name ? 1 : -1)
-      setHeroes(heroes)
-      setNames(
-        heroes.map((hero: any) => (
-          hero.localized_name
-        )).sort()
-      )
-      setIsLoading(false)
-      // Get prev filter conditions if any
-      if (localStorage.getItem("filterConditions") !== null) {
-        const { role, attackType, name } = JSON.parse(localStorage.getItem("filterConditions"))
-        setRole(role)
-        setAttackType(attackType)
-        setName(name)
-      }
-    })()
-  }, [])
+  const [{ data, loading, error }, refetch] = useAxios(
+    "https://api.opendota.com/api/heroes"
+  )
+
+  if (loading) return (
+    <Animation animationData={loadingAnimation} width={200} height={200} />
+  )
+
+  if (heroes === null && heroNames === null) {
+    setHeroes(data.sort((a: any, b: any) => a.name > b.name ? 1 : -1))
+    setNames(
+      data.map((hero: any) => (
+        hero.localized_name
+      )).sort()
+    )
+    if (localStorage.getItem("filterConditions") !== null) {
+      const { role, attackType, name } = JSON.parse(localStorage.getItem("filterConditions"))
+      setRole(role)
+      setAttackType(attackType)
+      setName(name)
+    }
+  }
 
   const showDetail = (e: any): void => {
     const hoveredHeroName: string = heroes.find((hero: any) => (
@@ -94,31 +95,27 @@ export const App: React.FC = (): JSX.Element => {
     />
   )
 
-  if (isLoading) {
-    return (
-      <Animation animationData={loading} width={200} height={200} />
-    )
-  }
-
   const strCards: Array<JSX.Element> = [],
         agiCards: Array<JSX.Element> = [],
         intCards: Array<JSX.Element> = []
-  heroes.forEach((hero: any) => {
-    let validRole: boolean = true,
-        validType: boolean = true,
-        validName: boolean = true
-    validRole = role === null ? true : hero.roles.includes(role)
-    validType = attackType === null ? true : hero.attack_type === attackType
-    validName = name === null ? true : hero.localized_name === name
-    const validity: boolean = validRole && validType && validName
-    if (hero.primary_attr === "str") {
-      strCards.push(generateHeroCard(hero, validity))
-    } else if (hero.primary_attr === "agi") {
-      agiCards.push(generateHeroCard(hero, validity))
-    } else if (hero.primary_attr === "int") {
-      intCards.push(generateHeroCard(hero, validity))
-    }
-  })
+  if (heroes !== null) {
+    heroes.forEach((hero: any) => {
+      let validRole: boolean = true,
+          validType: boolean = true,
+          validName: boolean = true
+      validRole = role === null ? true : hero.roles.includes(role)
+      validType = attackType === null ? true : hero.attack_type.toLowerCase() === attackType.toLowerCase()
+      validName = name === null ? true : hero.localized_name.toLowerCase() === name.toLowerCase()
+      const validity: boolean = validRole && validType && validName
+      if (hero.primary_attr === "str") {
+        strCards.push(generateHeroCard(hero, validity))
+      } else if (hero.primary_attr === "agi") {
+        agiCards.push(generateHeroCard(hero, validity))
+      } else if (hero.primary_attr === "int") {
+        intCards.push(generateHeroCard(hero, validity))
+      }
+    })
+  }
 
   // Whenever we hover on any hero card the heading state changes
   // then this component is re-rendered, causing all coponents to
