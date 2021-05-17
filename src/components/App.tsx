@@ -1,26 +1,16 @@
-import React, { ChangeEvent, useEffect, useRef, useState } from "react"
+import React, { ChangeEvent, useRef, useState } from "react"
 import loadingAnimation from "../assets/loading.json"
 import FadeIn from "react-fade-in"
 import {
   HeroCard,
   FilterOption,
   Animation,
-  HeroContainer
+  HeroContainer,
+  heroNamesState
 } from "./"
 import useAxios from "axios-hooks"
-import { atom, selector, useRecoilState } from "recoil"
-
-export const heroNamesState = atom({
-  key: "heroNames",
-  default: [] as any[]
-})
-
-export const heroNamesValue = selector({
-  key: "heroNamesValue",
-  get: ({ get }) => ({
-    all: get(heroNamesState),
-  }),
-});
+import { useRecoilState } from "recoil"
+import { baseUrl } from "../config/urls"
 
 export const App: React.FC = (): JSX.Element => {
   const headingRef = useRef(null)
@@ -30,9 +20,7 @@ export const App: React.FC = (): JSX.Element => {
   const [heroes, setHeroes] = useState(null)
   const [heroNames, setNames] = useRecoilState(heroNamesState);
 
-  const [{ data, loading, error }, refetch] = useAxios(
-    "https://api.opendota.com/api/heroes"
-  )
+  const [{ data, loading, error }, refetch] = useAxios(baseUrl)
 
   if (loading) return (
     <Animation animationData={loadingAnimation} width={200} height={200} />

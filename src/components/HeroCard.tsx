@@ -3,6 +3,7 @@ import React, { MouseEvent } from 'react'
 import {
   Link
 } from "react-router-dom"
+import { imageUrl } from '../config/urls'
 
 type HeroCardProps = {
   id: string,
@@ -12,6 +13,10 @@ type HeroCardProps = {
   name: string
   isValid: boolean
 }
+
+const getImageUrl = (heroName: String) => String (
+  `${imageUrl}${heroName}_full.png`
+)
 
 export const HeroCard: React.FC<HeroCardProps> = ({
   id, mouseOver, attr, localized_name, name, isValid
@@ -25,7 +30,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
           onMouseOver={isValid ? mouseOver : () => {}}
           className={`${isValid && "hover"} ${isValid && attr}`}
           data-id={id}
-          src={`https://cdn.dota2.com/apps/dota2/images/heroes/${name}_full.png`}
+          src={getImageUrl(name)}
           style={{opacity: isValid ? 1 : .3}}
           alt={name}
         />          

@@ -1,6 +1,6 @@
 import React, { ChangeEvent } from "react"
 import { useRecoilValue } from "recoil"
-import { heroNamesValue } from "./App"
+import { heroNamesValue } from "./"
 
 type FilterOptionProps = {
   filterRole: (e: ChangeEvent<HTMLSelectElement>) => void,
