@@ -30,7 +30,7 @@ export const HeroCard: React.FC<HeroCardProps> = ({
           onMouseOver={isValid ? mouseOver : () => {}}
           className={`${isValid && "hover"} ${isValid && attr}`}
           data-id={id}
-          src={getImageUrl(name)}
+          src={name === "dawnbreaker" ? "https://static.wikia.nocookie.net/dota2_gamepedia/images/d/d6/Dawnbreaker_icon.png" : getImageUrl(name)}
           style={{opacity: isValid ? 1 : .3}}
           alt={name}
         />          

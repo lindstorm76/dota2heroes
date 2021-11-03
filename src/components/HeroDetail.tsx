@@ -47,7 +47,7 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
     color = "#3B82F6"
     attr = "inteligence"
   }
-
+  const imgSrc = hero.name === "npc_dota_hero_dawnbreaker" ? "https://cdn.cloudflare.steamstatic.com/steamcommunity/public/images/clans/3703047/b779c0bfa98e5ab82b8b6efc534e0834153b0acd.jpg" : `https://cdn.dota2.com/apps/dota2/images/heroes/${hero.name.split("_dota_hero_")[1]}_full.png`
   return (
     
     <FadeIn>
@@ -56,7 +56,7 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
           <div className="hero-image-container">
             <img
               alt={hero.name}
-              src={`https://cdn.dota2.com/apps/dota2/images/heroes/${hero.name.split("_dota_hero_")[1]}_full.png`}
+              src={imgSrc}
               style={{width: "20rem", borderColor: color}}
             />
           </div>
