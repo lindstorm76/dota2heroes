@@ -34,7 +34,7 @@ export const HeroDetail: React.FC<HeroDetailProps> = ({
   
   if (notFound) return <NotFound />
 
-  const roles: string = hero.roles.reduce((acc: string, cur: string) => acc + " - " + cur, "")
+  const roles: string = hero.roles.reduce((acc: string, cur: string) => acc + " • " + cur, "")
   let color: string, attr: string
   const primaryAttr: string = hero.primary_attr
   if (primaryAttr === "str") {

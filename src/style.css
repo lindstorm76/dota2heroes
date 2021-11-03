@@ -165,6 +165,18 @@ option, select {
   }
 }
 
+@media (max-width: 500px) {
+  .heading {
+    font-size: 150%;
+  }
+}
+
+@media (min-width: 501px) {
+  .heading {
+    font-size: 250%;
+  }
+}
+
 .center-container {
   display: flex;
   flex-direction: column;
