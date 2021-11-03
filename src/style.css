@@ -74,9 +74,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 .heading {
   text-transform: uppercase;
-}
-
-.heading {
+  line-height: 2.5rem;
   color: silver;
   letter-spacing: .5rem;
 }
